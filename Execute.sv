@@ -28,7 +28,7 @@
 ***********************************************
 **/
 module Execute #(parameter N=32)
-					(input logic MemPWrite, RegWrite, MemWrite, BranchInst, ALUSrc, FlagWrite, PAUOp, IOFlag, ResultSrc, clk,
+					(input logic MemPWrite, RegWrite, MemWrite, BranchInst, ALUSrc, FlagWrite, PAUOp, IOFlag, ResultSrc, clk,  /***Eliminar PAUOp ResultSrc*/
 					 input logic [1:0] MemToReg,
 					 input logic [3:0] ALUControl,
 					 input logic [2:0] CondFlag,
@@ -39,7 +39,7 @@ module Execute #(parameter N=32)
 					 output logic [N-1:0] ALUResult, WriteData, 
 					 output logic [3:0] RdOut);
 	logic z, v, n, enable2, condi;
-	logic [31:0] ALUOut, APUout, RbMux;
+	logic [31:0] ALUOut, RbMux;
 	assign MemPWriteOut = MemPWrite;
 	//assign RegWriteOut = RegWrite;
 	assign MemToRegOut = MemToReg;
@@ -51,8 +51,6 @@ module Execute #(parameter N=32)
 	assign RegWriteOut = condi & RegWrite; //new
 	assign PCSrc = condi & BranchInst; //new
 	ConditionalUnit UniCondicion (z, v, n, FlagWrite, enable2, clk, CondFlag, condi);
-	ALU #(32) ALUnit (Ra, RbMux, ALUControl, z, n, v, ALUOut);
-	PAU #(32) PAUnit (Ra, Rb,PAUOp, APUout);
+	ALU #(32) ALUnit (Ra, RbMux, ALUControl, z, n, v, ALUResult);
 	assign RbMux = (ALUSrc) ? ExtIm : Rb;
-	assign ALUResult = (ResultSrc) ? APUout : ALUOut;
 endmodule 
