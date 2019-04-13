@@ -7,8 +7,9 @@ simulation/
 *.rpt
 *.qws
 *.do
-wave.do
-wlft33cfsz
-wlftes62sj
-wlftytjg5s
+*.mem
+wlft*
+Memory.sv
+RegisterFile.sv
+PixelMemory.sv
 ArquitecturaHybridARMIPS_assignment_defaults.qdf
