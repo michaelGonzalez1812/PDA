@@ -62,7 +62,6 @@ endmodule
 					
 			Lenguaje: SystemVerilog
 					Version: 1.0         
-		Ultima Modificacion: 24/09/2018
 	
 	Entradas:- 2 operandos de entrada
 				- Selector de operacion
@@ -77,7 +76,7 @@ endmodule
 				- Banderas de Zero, Negativo y
 				overflow
             
-		Arquitectura de Computadores I 2018
+		Arquitectura de Computadores I 2019
 				Prof. Ronald Garcia
 ***********************************************
 **/
