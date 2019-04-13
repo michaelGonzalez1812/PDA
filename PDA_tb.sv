@@ -1,9 +1,9 @@
-module ArquitecturaHybridARMIPS_tb();
+module PDA_tb();
 	logic clk, halt, reset;
 	logic [31:0] inst, DecoVisu, ExeVisu, MemVisu, MemPixVisu, WBVisu;
 	logic [16:0] contador;
 
-	ArquitecturaHybridARMIPS DUT (clk, reset, halt, inst, DecoVisu, ExeVisu, MemVisu, MemPixVisu, WBVisu);
+	PDA DUT (clk, reset, halt, inst, DecoVisu, ExeVisu, MemVisu, MemPixVisu, WBVisu);
 	
 	initial begin
 		halt=1'b0;
