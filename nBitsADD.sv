@@ -12,13 +12,11 @@ endmodule
 
 					Sumador Completo
        
-		Autores: Esteban Aguero Perez
-					Michael Gonzalez Rivera
-					Daniela Hernandez Alvarado
+		Autores:
 					
 			Lenguaje: SystemVerilog
 					Version: 1.0         
-		Ultima Modificacion: 24/09/2018
+		Ultima Modificacion: 
 	
 	Entradas:- 2 operandos de entrada
 				- Acarreo de entrada
@@ -32,7 +30,7 @@ endmodule
 				- Bandera de overflow
 				- Acarreo de salida
             
-		Arquitectura de Computadores I 2018
+		Arquitectura de Computadores I 2019
 				Prof. Ronald Garcia
 ***********************************************
 **/
