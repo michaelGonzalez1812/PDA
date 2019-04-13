@@ -44,9 +44,6 @@ module MemoryStage #(parameter N = 32)
 							output logic [1:0] MemToRegOut);
 	
 	Memory data_memory(clk, MEMWrite, address, WriteData, ReadDataDataMem);
-	
-	//PixelsMemory p_memory(clk, MemPWrite, address, WriteData, ReadDataPixMem);
-	PixelMemory p_memory(clk, MemPWrite, address, WriteData, ReadDataPixMem);
 
 	assign ALUresultOut = address;
 	assign RdOut = RdIn;
@@ -54,5 +51,4 @@ module MemoryStage #(parameter N = 32)
 	assign RegWriteOut = RegWrite;
 	assign IOFlagOut = IOFlag;
 	assign MemToRegOut = MemToReg;
-	
 endmodule
