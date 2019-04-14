@@ -41,7 +41,7 @@ module RegisterFile #(parameter N=4, M=32)
 logic [31:0]rf[16]; // [14:0]
 // verificar esto 
 initial begin
-		$readmemb("D:/ArquiI/PDA/registros.mem", rf); // cambiar ruta de cada uno
+		$readmemb("registros.mem", rf); // cambiar ruta de cada uno
 	end
 // verificar esto 
 always_ff@(posedge clk)
