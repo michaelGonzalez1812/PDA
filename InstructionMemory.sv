@@ -25,13 +25,14 @@
 ***********************************************
 */
 module InstructionMemory #(parameter N = 32, M=2048) // 8kB
-								  (input  logic [N-1:0] address,
-									output logic [N-1:0] data_out);
+	   (input  int address,
+		output int data_out);
 	
-	logic [N-1:0] mem [M];
-	assign data_out = mem[address];
 	initial begin
 		$readmemb("D:/ArquiI/PDA/instrucciones.mem", mem); // cambiar ruta de cada uno
 	end
+
+	int mem [M];
+	assign data_out = mem[address];
 	
 endmodule
