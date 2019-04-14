@@ -58,7 +58,9 @@ endmodule
 
 						ALU
        
-		Autores: 
+		Autores: Michael Gonzalez Rivera
+				 Erick Cordero
+				 Victor Montero
 					
 			Lenguaje: SystemVerilog
 					Version: 1.0         

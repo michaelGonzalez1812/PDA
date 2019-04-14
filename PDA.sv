@@ -3,15 +3,14 @@
 		Instituto Tecnologico de Costa Rica 
 			Ingenieria en Electronica
 
-					HybridARMIPS
+					PDA
        
-		Autores: Esteban Aguero Perez
-					Michael Gonzalez Rivera
-					Daniela Hernandez Alvarado
+		Autores: Michael Gonzalez Rivera
+				 Erick Cordero
+				 Victor Montero
 					
 			Lenguaje: SystemVerilog
-					Version: 1.0         
-		Ultima Modificacion: 27/09/2018
+					Version: 1.0        
 	
 	Entradas:- Clk
 				- reset
@@ -22,7 +21,7 @@
 	
    Salidas: - Ejecucion de las instrucciones
             
-		Arquitectura de Computadores I 2018
+		Arquitectura de Computadores I 2019
 				Prof. Ronald Garcia
 ***********************************************
 **/

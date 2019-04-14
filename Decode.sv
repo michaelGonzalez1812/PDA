@@ -5,13 +5,12 @@
 
 					Etapa Decode
        
-		Autores: Esteban Aguero Perez
-					Michael Gonzalez Rivera
-					Daniela Hernandez Alvarado
-					
+		Autores: Michael Gonzalez Rivera
+				 Erick Cordero
+				 Victor Montero
+
 			Lenguaje: SystemVerilog
 					Version: 1.0         
-		Ultima Modificacion: 27/09/2018
 	
 	Entradas:- Instruccion
 				- PC
@@ -30,7 +29,7 @@
 				- Direccion de Rd
 				- Resultado de la extension de signo
             
-		Arquitectura de Computadores I 2018
+		Arquitectura de Computadores I 2019
 				Prof. Ronald Garcia
 ***********************************************
 **/

@@ -5,13 +5,12 @@
 
 						PixelsMemory
        
-		Autores: Esteban Aguero Perez
-					Michael Gonzalez Rivera
-					Daniela Hernandez Alvarado
+		Autores: Michael Gonzalez Rivera
+				 Erick Cordero
+				 Victor Montero
 					
 			Lenguaje: SystemVerilog
 					Version: 1.0         
-		Ultima Modificacion: 26/09/2018
 	
 	Entradas:- 1 operando de entrada
 				- Dirección de lectura
@@ -21,7 +20,7 @@
 	
    Salidas: - Dato leido
             
-		Arquitectura de Computadores I 2018
+		Arquitectura de Computadores I 2019
 				Prof. Ronald Garcia
 ***********************************************
 */

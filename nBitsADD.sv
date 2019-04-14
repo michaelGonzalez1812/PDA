@@ -12,11 +12,12 @@ endmodule
 
 					Sumador Completo
        
-		Autores:
+		Autores:Michael Gonzalez Rivera
+				 Erick Cordero
+				 Victor Montero
 					
 			Lenguaje: SystemVerilog
-					Version: 1.0         
-		Ultima Modificacion: 
+					Version: 1.0    
 	
 	Entradas:- 2 operandos de entrada
 				- Acarreo de entrada

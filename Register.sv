@@ -5,13 +5,12 @@
 
 					Registro Basico
        
-		Autores: Esteban Aguero Perez
-					Michael Gonzalez Rivera
-					Daniela Hernandez Alvarado
+		Autores: Michael Gonzalez Rivera
+				 Erick Cordero
+				 Victor Montero
 					
 			Lenguaje: SystemVerilog
 					Version: 1.0         
-		Ultima Modificacion: 24/09/2018
 	
 	Entradas:- Valor de N bits
 				- Reloj
@@ -24,7 +23,7 @@
 				la entrada pasa a la salida
 
             
-		Arquitectura de Computadores I 2018
+		Arquitectura de Computadores I 2019
 				Prof. Ronald Garcia
 ***********************************************
 **/
