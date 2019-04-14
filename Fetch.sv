@@ -27,12 +27,12 @@
 **********************************************************************
 */
 module Fetch #(parameter N = 32)
-              (input  logic clk, PCsrc,
-		  		   input  logic [N-1:0] PCalu,
-				   output logic [N-1:0] inst,
-					output logic [N-1:0] PCout);
-					
-	logic [N-1:0] PCin, PCplus1;
+	   (input  logic clk, 
+		input  bit PCsrc,
+		input  int PCalu,
+		output int inst, PCout);
+
+	int PCin, PCplus1;
 	
 	Register #(N) PC (PCin, ~clk, 1'b1, PCout);
 	nBitsADD #(N) Sumador (PCout, 32'b1, 1'b0, PCplus1);

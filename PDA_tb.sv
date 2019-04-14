@@ -19,7 +19,7 @@ module PDA_tb();
 	always@(posedge clk) begin
 		contador <= contador + 1;
 		if (contador >= 5)
-			$finish;
+			$stop;
 	end
 
 endmodule 
