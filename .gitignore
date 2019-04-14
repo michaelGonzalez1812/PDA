@@ -9,8 +9,5 @@ simulation/
 *.do
 *.mem
 wlft*
-Memory.sv
-RegisterFile.sv
-PixelMemory.sv
 test*
 ArquitecturaHybridARMIPS_assignment_defaults.qdf
