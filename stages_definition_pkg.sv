@@ -35,15 +35,19 @@ package stages_definition_pkg;
     } inst_deco;
 
     typedef struct packed {
-        int RD1, RD2, R0, R1, Rd, imm;
+        int RD1, RD2, R0, R1, imm;
+        bit [3:0]  Rd;
         bit [2:0] cond;
+
     } deco_exe_interface;
 
     typedef struct packed {
-        int aluResult, trigResult, Ax, Ay, Rd, WD;
+        bit [3:0]  Rd;
+        int aluResult, trigResult, Ax, Ay, WD;
     } exe_mem_interface;
 
     typedef struct packed {
         int dataMemRead, pixMemRead, aluResult, trigResult;
+        bit [3:0]  Rd;
     } mem_wb_interface;
 endpackage
