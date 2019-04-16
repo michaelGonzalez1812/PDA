@@ -28,17 +28,11 @@
 ***********************************************
 **/
 module WriteBackStage #(parameter N=32)
-						(input logic PCSrc, RegWrite, IOFlag,
-						 input logic [1:0] MemToReg,
-						 input logic [N-1:0] IOIn, ReadData, ReadDataP, ALUOut, 
-						 input logic [3:0] Rd,
-						 output logic [N-1:0] OutData, 
-						 output logic [3:0] RdOut,
-						 output logic PCSrcOut, RegWriteOut);
-	logic [N-1:0] Result;
-	assign Result = (MemToReg == 2'b0) ? ReadData : (MemToReg == 2'b1) ? ALUOut : (MemToReg == 2'b10) ? ReadDataP : 32'b0;
-	assign OutData = (IOFlag) ? IOIn : Result;
-	assign PCSrcOut = PCSrc;
-	assign RegWriteOut = RegWrite;
-	assign RdOut = Rd;
+	   (input mem_wb_interface mem_wb_inter_wb
+	    input bit [0:1] memToReg;
+		output int outSelected);
+	
+	assign outSelected = (memToReg == 2'b00)? mem_wb_inter_wb.dataMemRead :
+						 (memToReg == 2'b01)? mem_wb_inter_wb.aluResult :
+						 (memToReg == 2'b10)? mem_wb_inter_wb.pixMemRead : trigResult;
 endmodule   
