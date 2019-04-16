@@ -6,7 +6,10 @@ simulation/
 *.bak
 *.rpt
 *.qws
-*.do
+DUTcompilation.do
+DUTsimulation.do
+DUTsimulate.do
+wave.do
 *.mem
 wlft*
 test*

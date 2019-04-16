@@ -29,24 +29,27 @@
 **********************************************************************
 */
 module RegisterFile #(parameter N=4, M=32)
-			(input logic clk,
-			input logic WE3,
-			input logic [N-1:0] A1,
-			input logic [N-1:0] A2,
-			input logic [N-1:0] A3,
-			input logic [M-1:0] WD3,
-			input logic [M-1:0] R15,
-			output logic [M-1:0] RD1,
-			output logic [M-1:0] RD2);
-logic [31:0]rf[16]; // [14:0]
-// verificar esto 
-initial begin
-		$readmemb("registros.mem", rf); // cambiar ruta de cada uno
-	end
-// verificar esto 
-always_ff@(posedge clk)
-	if (WE3) rf[A3] <= WD3;
+	   (input  logic clk, WE3,
+		input  bit   [3:0] A1, A2, A3,
+		input  int   WD3, R15,
+		output int   RD1, RD2, R0, R1);
+
+	bit [31:0] rf [16]; 
 	
-	assign RD1 = (A1==4'b1111)? R15:rf[A1];
-	assign RD2 = (A1==4'b1111)? R15:rf[A2];
+	initial begin
+		$readmemb("registros.mem", rf);
+
+	end
+	
+	always_ff@(posedge clk) 
+		//if (WE3) rf[A3] <= WD3;
+		if (WE3) 
+			if (A3 == 4'b0) rf[A3] <= {23'b0, WD3[8:0]};
+			else if (A3 == 4'b1) rf[A3] <= {24'b0, WD3[7:0]};
+			else rf[A3] <= WD3;
+			
+	assign RD1 = rf[A1];
+	assign RD2 = rf[A2];
+	assign R0 = rf[0];
+	assign R1 = rf[1];
 endmodule
