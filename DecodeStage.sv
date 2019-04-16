@@ -33,27 +33,42 @@
 				Prof. Ronald Garcia
 ***********************************************
 **/
+
+import stages_definition_pkg::*;
+
 module DecodeStage #(parameter N=32)
-					(input logic [N-1:0] inst, PC, DataWrite,
-					 input logic [3:0] Rd,
-					 input logic clk, RegWrite,
-					 output logic [N-1:0] Ra, Rb, ExtImm,
-					 output logic [3:0] RdOut,
-					 output logic MemPWrite, RegWriteOut, MemWrite, BranchInst, ALUSrc, FlagWrite, PAUOp, IOFlag, ResultSrc,
-					 output logic [3:0] ALUControl,
-					 output logic [2:0] CondFlag,
-					 output logic [1:0] MemToReg);
-	logic RnSrc, ImmSrc, RsSrc, ImmExt;
-	logic [3:0] A1, A2;
-	logic [26:0] ImmMux;
+	   (input  logic clk, WE3,
+		input  int   inst, pc, WD3,
+		output bit   [3:0] A1, A2,
+		deco_exe_interface deco_exe_inter_deco);
 	
-	ControlUnit UnidadControl (inst[31:22], RnSrc, ImmSrc, RsSrc, ResultSrc, IOFlag, PAUOp, ImmExt, FlagWrite, ALUSrc, 
-										BranchInst, MemWrite, RegWriteOut, MemPWrite, ALUControl, CondFlag, MemToReg);
-	RegisterFile #(4, N) BancoRegistro (clk, RegWrite, A1, A2, Rd,	DataWrite, PC, Ra, Rb);
-	Extend Extension (ImmMux, ImmSrc, ImmExt, ExtImm);
+	logic regSrcA1, regSrcA2, bLink;
+	inst_deco inst_dec;
+	deco_exe_cu_signals deco_exe_cu_sig_deco;
+
+	ControlUnit UnidadControl 
+	   (inst_dec.op, inst_dec.cmd, inst_dec.Rd, inst_dec.immSignal, //inputs
+		deco_exe_cu_sig_deco, regSrcA1, regSrcA2, bLink); //outputs
+
+	RegisterFile #(4, N) BancoRegistro 
+	   (clk, WE3, A1, A2, A3, WD3, pc, 
+		deco_exe_inter_deco.RD1, deco_exe_inter_deco.RD2,
+		deco_exe_inter_deco.R0, deco_exe_inter_deco.R1);
+
+	/***********************************************
+	 * conectar unidad de extension
+	 ***********************************************/
+	//Extend Extension (ImmMux, ImmSrc, ImmExt, ExtImm);
 	
-	assign ImmMux = (ImmSrc) ? inst[26:0] : { {13{1'b0}},inst[13:0]};
-	assign A1 = (RnSrc) ? inst[17:14] : inst[21:18];
-	assign A2 = (RsSrc) ? inst[17:14] : inst[13:10];
-	assign RdOut = inst[17:14];
+	assign A1 = (regSrcA1) ? 32'd15      : inst_dec.Rn;
+	assign A2 = (regSrcA2) ? inst_dec.Rd : inst_dec.Rs;
+
+	assign inst_dec.imm  = inst[26:0];
+	assign inst_dec.cmd  = inst[25:21];
+	assign inst_dec.Rd   = inst[20:17];
+	assign inst_dec.Rn   = inst[16:13];
+	assign inst_dec.Rs   = inst[3:0];
+	assign inst_dec.cond = inst[31:29];
+	assign inst_dec.op   = inst[28:27];
+	assign inst_dec.immSignal = inst[26];
 endmodule 

@@ -6,12 +6,6 @@ package stages_definition_pkg;
 		bit [3:0] Rd;
     } exe_mem_interface;
 */
-    typedef struct packed {
-        bit[2:0] cond;
-        bit[1:0] op;
-        bit i;
-        bit[4:0] cmd;
-    } inst_header;
 
     typedef struct packed {
         //TODO: Revisar si immSrc es de 1 bit
@@ -37,7 +31,17 @@ package stages_definition_pkg;
     } deco_in;
 
     typedef struct packed {
-        int Rd1, Rd2, R0, R1, imm;
+        bit [26:0] imm;
+        bit [4:0]  cmd;
+        bit [3:0]  Rd, Rn, Rs;
+        bit [2:0]  cond;
+        bit [1:0]  op;
+        bit immSignal;
+    } inst_deco;
+
+    typedef struct packed {
+        int RD1, RD2, R0, R1, imm;
+        bit [2:0] cond;
     } deco_exe_interface;
 
     typedef struct packed {

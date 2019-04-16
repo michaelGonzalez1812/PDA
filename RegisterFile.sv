@@ -31,7 +31,7 @@
 module RegisterFile #(parameter N=4, M=32)
 	   (input  logic clk, WE3,
 		input  bit   [3:0] A1, A2, A3,
-		input  int   WD3, R15,
+		input  int   WD3, pc,
 		output int   RD1, RD2, R0, R1);
 
 	bit [31:0] rf [16]; 
@@ -41,13 +41,15 @@ module RegisterFile #(parameter N=4, M=32)
 
 	end
 	
-	always_ff@(posedge clk) 
-		//if (WE3) rf[A3] <= WD3;
+	always_ff@(posedge clk) begin
 		if (WE3) 
 			if (A3 == 4'b0) rf[A3] <= {23'b0, WD3[8:0]};
 			else if (A3 == 4'b1) rf[A3] <= {24'b0, WD3[7:0]};
 			else rf[A3] <= WD3;
-			
+		
+		rf[32'd15] = pc;
+	end			
+
 	assign RD1 = rf[A1];
 	assign RD2 = rf[A2];
 	assign R0 = rf[0];
