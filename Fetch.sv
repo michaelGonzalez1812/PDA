@@ -2,6 +2,7 @@
 **********************************************************************
 		Instituto Tecnologico de Costa Rica 
 			Ingenieria en Electronica
+			
 						Fetch
        
 		Autores: Michael Gonzalez Rivera
@@ -11,16 +12,19 @@
 			Lenguaje: SystemVerilog
 					Version: 1.0         
 	
-	Entradas:- 3 operandos de entrada
+	Entradas:- 5 operandos de entrada
 				- clock
-				- Fuente para leer pec
-				- PC proveniente de la ALU
+				- Fuente para leer pc, entre WB y el sumado
+				- Fuente para leer pc, entre Exe alu result y el 
+				  resultado la selección anterior
+				- PC proveniente de la etapa WB
+				- PC proveniente de la etapa exe
 				
 	Restricciones:
 				- Entradas son de N bits 
 	
    Salidas: - instrucción leida
-				- PC actual
+		    - PC actual
             
 		Arquitectura de Computadores I 2019
 				Prof. Ronald Garcia
