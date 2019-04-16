@@ -32,22 +32,28 @@
 				Prof. Ronald Garcia
 *********************************************************************
 */
+
+import stages_definition_pkg::*;
+
 module MemoryStage #(parameter N = 32) 
-						  (input logic clk, MEMWrite, MemPWrite, PCSrc, RegWrite, IOFlag,
+						  (input logic clk, 
+						   exe_mem_interface in_signal,
+						  /*MEMWrite, MemPWrite, PCSrc, RegWrite, IOFlag,
 							input logic [1:0] MemToReg,
 							input logic [N-1:0] address, WriteData,
-							input logic [3:0] RdIn,
+							input logic [3:0] RdIn,*/
 							output logic [N-1:0] ReadDataDataMem, ReadDataPixMem, ALUresultOut,
 							output logic [3:0]  RdOut,
 							output logic PCSrcOut, RegWriteOut, IOFlagOut,
 							output logic [1:0] MemToRegOut);
 	
-	Memory data_memory(clk, MEMWrite, address, WriteData, ReadDataDataMem);
+	Memory data_memory(clk, in_signal.MemWrite, address, in_signal.WriteData, ReadDataDataMem);
 
-	assign ALUresultOut = address;
-	assign RdOut = RdIn;
-	assign PCSrcOut = PCSrc;
-	assign RegWriteOut = RegWrite;
-	assign IOFlagOut = IOFlag;
-	assign MemToRegOut = MemToReg;
+	//assign ALUresultOut = address;
+	assign ALUresultOut = in_signal.ALUResult;
+	assign RdOut = in_signal.Rd;
+	assign PCSrcOut = in_signal.PCSrc;
+	assign RegWriteOut = in_signal.RegWrite;
+	assign IOFlagOut = in_signal.IOFlag;
+	assign MemToRegOut = in_signal.MemToReg;
 endmodule
