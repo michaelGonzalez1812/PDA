@@ -30,30 +30,37 @@
 import stages_definition_pkg::*;
 
 module ExecuteStage #(parameter N=32)
-					(input logic MemPWrite, RegWrite, MemWrite, BranchInst, ALUSrc, FlagWrite, PAUOp, IOFlag, ResultSrc, clk,  /***Eliminar PAUOp ResultSrc*/
-					 input logic [1:0] MemToReg,
-					 input logic [3:0] ALUControl,
-					 input logic [2:0] CondFlag,
-					 input logic [31:0] Ra, Rb, ExtIm,
-					 input logic [3:0] Rd,
-					 output exe_mem_interface out_signal);
-					 /*output logic PCSrc, RegWriteOut, MemWriteOut, MemPWriteOut, IOFlagOut,
-					 output logic [1:0] MemToRegOut,
-					 output logic [N-1:0] ALUResult, WriteData, 
-					 output logic [3:0] RdOut);*/
-	logic z, v, n, enable2, condi;
-	logic [31:0] ALUOut, RbMux;
-	assign out_signal.MemPWrite = MemPWrite;
-	//assign RegWriteOut = RegWrite;
-	assign out_signal.MemToReg = MemToReg;
-	assign out_signal.MemWrite = MemWrite;
-	assign out_signal.IOFlag = IOFlag;
-	assign out_signal.Rd = Rd;
-	assign out_signal.WriteData = Rb;
-	assign enable2 = BranchInst | RegWrite; //new
-	assign out_signal.RegWrite = condi & RegWrite; //new
-	assign out_signal.PCSrc = condi & BranchInst; //new
-	ConditionalUnit UniCondicion (z, v, n, FlagWrite, enable2, clk, CondFlag, condi);
-	ALU #(32) ALUnit (Ra, RbMux, ALUControl, z, n, v, out_signal.ALUResult);
-	assign RbMux = (ALUSrc) ? ExtIm : Rb;
+       (input deco_exe_interface deco_exe_inter_exe,
+	    input bit aluSrc, trigControl,
+		input bit [1:0] forwardAluSrc1, forwardAluSrc2,
+		input bit [1:0]	forwardAx, forwardAy,
+		input bit [3:0] aluControl,
+		input int forwardFromWb, forwardFromMem,
+		output exe_mem_interface exe_mem_inter_exe,
+		output bit [3:0] Rd);
+
+	int aluSrc1, aluSrc2, aluSrc2Forward;
+	bit z,n,v;
+
+	/***********************************************
+	 * conectar conditional unit
+	 ***********************************************/
+	//ConditionalUnit UniCondicion (z, v, n, FlagWrite, enable2, clk, CondFlag, condi);
+	
+	/***********************************************
+	 * conectar unidad de trigonometria
+	 ***********************************************/
+	
+	ALU #(N) alu (aluSrc1, aluSrc2, aluControl, z, n, v, exe_mem_inter_exe.aluResult);
+	
+	assign aluSrc1 = (forwardAluSrc1 == 2'b00)? deco_exe_inter_exe.RD1 :
+					 (forwardAluSrc1 == 2'b01)? forwardFromWb : forwardFromMem;
+	assign aluSrc2Forward = (forwardAluSrc2 == 2'b00)? deco_exe_inter_exe.RD2 :
+					 (forwardAluSrc2 == 2'b01)? forwardFromWb : forwardFromMem;
+	assign aluSrc2 = (aluSrc)? deco_exe_inter_exe.imm : aluSrc2Forward;
+	assign exe_mem_inter_exe.Ax = (forwardAx == 2'b00)? deco_exe_inter_exe.R0 :
+					 (forwardAx == 2'b01)? forwardFromWb : forwardFromMem;
+	assign exe_mem_inter_exe.Ay = (forwardAy == 2'b00)? deco_exe_inter_exe.R1 :
+					 (forwardAy == 2'b01)? forwardFromWb : forwardFromMem;
+	assign exe_mem_inter_exe.WD = aluSrc2Forward;
 endmodule 

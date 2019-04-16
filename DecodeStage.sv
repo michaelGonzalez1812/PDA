@@ -40,7 +40,7 @@ module DecodeStage #(parameter N=32)
 	   (input  logic clk, WE3,
 		input  int   inst, pc, WD3,
 		output bit   [3:0] A1, A2,
-		deco_exe_interface deco_exe_inter_deco);
+		output deco_exe_interface deco_exe_inter_deco);
 	
 	logic regSrcA1, regSrcA2, bLink;
 	inst_deco inst_dec;
@@ -71,4 +71,5 @@ module DecodeStage #(parameter N=32)
 	assign inst_dec.cond = inst[31:29];
 	assign inst_dec.op   = inst[28:27];
 	assign inst_dec.immSignal = inst[26];
+	assign deco_exe_inter_deco = inst_dec.Rd;
 endmodule 

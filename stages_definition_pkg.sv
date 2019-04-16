@@ -26,11 +26,6 @@ package stages_definition_pkg;
     } mem_wb_cu_signals;
 
     typedef struct packed {
-        bit [3:0] Rn, Rs, Rd;
-        bit [25:0] imm;
-    } deco_in;
-
-    typedef struct packed {
         bit [26:0] imm;
         bit [4:0]  cmd;
         bit [3:0]  Rd, Rn, Rs;
@@ -40,12 +35,12 @@ package stages_definition_pkg;
     } inst_deco;
 
     typedef struct packed {
-        int RD1, RD2, R0, R1, imm;
+        int RD1, RD2, R0, R1, Rd, imm;
         bit [2:0] cond;
     } deco_exe_interface;
 
     typedef struct packed {
-        int aluResult, trigResult, R0, R1;
+        int aluResult, trigResult, Ax, Ay, Rd, WD;
     } exe_mem_interface;
 
     typedef struct packed {
