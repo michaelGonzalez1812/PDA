@@ -32,9 +32,9 @@ module ControlUnit(input inst_header inst_head,
 		output bit RegSrcA1, RegSrcA2, bLink);
 	always_comb begin
 		if(inst_head.op == PROCESSING) begin
-			if (inst.immSignal == WITHOUT_IMM) begin
-				if (inst.cmd == AND) begin
-					add_without (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+			if (inst_head.immSignal == WITHOUT_IMM) begin
+				if (inst_head.cmd == AND) begin
+					add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 				end
 			end
 		end

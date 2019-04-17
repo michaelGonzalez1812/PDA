@@ -55,10 +55,10 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 
 	int instFetch, instInDeco, wbOutput, pcFetch;
 	bit pcSrcExe;
+	bit regSrcA1, regSrcA2, bLink;
 	
-
 	ControlUnit cu (inst_head, //input
-		deco_exe_cu_sig_deco); //output
+		deco_exe_cu_sig_deco, regSrcA1, regSrcA2, bLink); //output
 
 	ConditionalUnit condUnit (clk, deco_exe_inter_exe.cond, //input
 		cond_flags, deco_exe_cu_sig_exe.flagWrite, //input
@@ -71,10 +71,11 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 
 	FetchStage #(32) fetch_stage (clk, mem_wb_cu_sig_wb.pcSrc, //input
 		pcSrcExe, wbOutput, exe_mem_inter_exe.aluResult, //input
-		instInDeco, pcFetch); //output
+		instFetch, pcFetch); //output
 					
 	DecodeStage #(32) decode_stage (clk, mem_wb_cu_sig_wb.regWrite, //input
-		instFetch, pcFetch, wbOutput, //input
+		instInDeco, pcFetch, wbOutput, //input
+		regSrcA1, regSrcA2, bLink, //input
 		hazard_in.decoA1, hazard_in.decoA2, //output
 		inst_head, deco_exe_inter_deco); //output
 
@@ -105,4 +106,15 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	assign hazard_out.forwardAx = 0;
 	assign hazard_out.forwardAy = 0;
 
+	/**********************************************
+	*	execute control signals assigment 
+	*********************************************/
+	assign exe_mem_cu_sig_exe.memToReg = deco_exe_cu_sig_exe.memToReg;
+
+	/**********************************************
+	*	execute control signals assigment 
+	*********************************************/
+	assign mem_wb_cu_sig_mem.pcSrc = exe_mem_cu_sig_mem.pcSrc;
+	assign mem_wb_cu_sig_mem.regWrite = exe_mem_cu_sig_mem.regWrite;
+	assign mem_wb_cu_sig_mem.memToReg = exe_mem_cu_sig_mem.memToReg;
 endmodule 

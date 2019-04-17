@@ -39,16 +39,16 @@ import stages_definition_pkg::*;
 module DecodeStage #(parameter N=32)
 	   (input  logic clk, regWrite,
 		input  int   inst, pc, WD3,
+		input  logic regSrcA1, regSrcA2, bLink,
 		output bit   [3:0] A1, A2,
 		output inst_header inst_head,
 		output deco_exe_interface deco_exe_inter_deco);
 	
-	logic regSrcA1, regSrcA2, bLink;
 	instruction_arguments inst_arguments;
 	deco_exe_cu_signals deco_exe_cu_sig_deco;
 
 	RegisterFile #(4, N) BancoRegistro 
-	   (clk, WE3, A1, A2, A3, WD3, pc, 
+	   (clk, regWrite, A1, A2, A3, WD3, pc, 
 		deco_exe_inter_deco.RD1, deco_exe_inter_deco.RD2,
 		deco_exe_inter_deco.R0, deco_exe_inter_deco.R1);
 
@@ -68,5 +68,5 @@ module DecodeStage #(parameter N=32)
 	assign inst_head.cmd  = inst[25:21];
 	assign inst_head.op   = inst[28:27];
 	assign inst_head.immSignal = inst[26];
-	assign deco_exe_inter_deco = inst_dec.Rd;
+	assign deco_exe_inter_deco.Rd = inst_arguments.Rd;
 endmodule 

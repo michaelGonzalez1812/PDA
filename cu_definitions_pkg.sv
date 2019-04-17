@@ -44,8 +44,7 @@ package cu_definitions_pkg;
     parameter WITH_IMM    = 1'b1;
     parameter WITHOUT_IMM = 1'b0;
 
-    task add_withoutimm (input logic clk,
-        output deco_exe_cu_signals ctr_signal,
+    task add_withoutimm (output deco_exe_cu_signals ctr_signal,
             output bit RegSrcA1, RegSrcA2, bLink);
         begin
             ctr_signal.pcSrc = 1'b0;  
@@ -58,7 +57,7 @@ package cu_definitions_pkg;
             ctr_signal.aluControl = 4'b0101;
             ctr_signal.memWrite = 1'b0; 
             ctr_signal.memPixWrite = 1'b0;
-            ctr_signal.memToReg = 1'b1;
+            ctr_signal.memToReg = 2'b01;
             ctr_signal.branch = 1'b0; 
             ctr_signal.flagWrite = 1'b0;      
             bLink = 1'b0;
