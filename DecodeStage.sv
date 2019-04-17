@@ -37,14 +37,14 @@
 import stages_definition_pkg::*;
 
 module DecodeStage #(parameter N=32)
-	   (input  logic clk, WE3,
+	   (input  logic clk, regWrite,
 		input  int   inst, pc, WD3,
 		output bit   [3:0] A1, A2,
 		output inst_header inst_head,
 		output deco_exe_interface deco_exe_inter_deco);
 	
 	logic regSrcA1, regSrcA2, bLink;
-	inst_arguments inst_arguments;
+	instruction_arguments inst_arguments;
 	deco_exe_cu_signals deco_exe_cu_sig_deco;
 
 	RegisterFile #(4, N) BancoRegistro 

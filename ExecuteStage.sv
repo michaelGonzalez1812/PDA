@@ -37,21 +37,15 @@ module ExecuteStage #(parameter N=32)
 		input bit [3:0] aluControl,
 		input int forwardFromWb, forwardFromMem,
 		output exe_mem_interface exe_mem_inter_exe,
-		output bit [3:0] Rd);
+		output conditional_flags cond_flags);
 
-	int aluSrc1, aluSrc2, aluSrc2Forward;
-	bit z,n,v;
-
-	/***********************************************
-	 * conectar conditional unit
-	 ***********************************************/
-	//ConditionalUnit UniCondicion (z, v, n, FlagWrite, enable2, clk, CondFlag, condi);
+	int aluSrc1, aluSrc2, aluSrc2Forward;	
 	
 	/***********************************************
 	 * conectar unidad de trigonometria
 	 ***********************************************/
 	
-	ALU #(N) alu (aluSrc1, aluSrc2, aluControl, z, n, v, exe_mem_inter_exe.aluResult);
+	ALU #(N) alu (aluSrc1, aluSrc2, aluControl, cond_flags.z, cond_flags.n, cond_flags.v, exe_mem_inter_exe.aluResult);
 	
 	assign aluSrc1 = (forwardAluSrc1 == 2'b00)? deco_exe_inter_exe.RD1 :
 					 (forwardAluSrc1 == 2'b01)? forwardFromWb : forwardFromMem;
