@@ -99,4 +99,10 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 		1'b1, {exe_mem_cu_sig_mem, exe_mem_inter_mem});
 	Register #(136) mem_wb ({mem_wb_cu_sig_mem, mem_wb_inter_mem} , ~clk,
 		1'b1, {mem_wb_cu_sig_wb, mem_wb_inter_wb});
+
+	assign hazard_out.forwardAluSrc1 = 0;
+	assign hazard_out.forwardAluSrc2 = 0;
+	assign hazard_out.forwardAx = 0;
+	assign hazard_out.forwardAy = 0;
+
 endmodule 
