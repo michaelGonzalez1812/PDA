@@ -1,12 +1,4 @@
 package stages_definition_pkg;
-/*    typedef struct packed {
-        bit PCSrc, RegWrite, MemWrite, MemPWrite, IOFlag;
-		bit [1:0] MemToReg;
-		int ALUResult, WriteData; 
-		bit [3:0] Rd;
-    } exe_mem_interface;
-*/
-
     typedef struct packed {
         //TODO: Revisar si immSrc es de 1 bit
         bit pcSrc, regWrite, memWrite, branch, aluSrc, 
@@ -27,12 +19,16 @@ package stages_definition_pkg;
 
     typedef struct packed {
         bit [26:0] imm;
-        bit [4:0]  cmd;
         bit [3:0]  Rd, Rn, Rs;
         bit [2:0]  cond;
+    } instruction_arguments;
+
+    typedef struct packed {
+        bit [4:0]  cmd;
+        bit [3:0]  Rd;
         bit [1:0]  op;
         bit immSignal;
-    } inst_deco;
+    } inst_header;
 
     typedef struct packed {
         int RD1, RD2, R0, R1, imm;

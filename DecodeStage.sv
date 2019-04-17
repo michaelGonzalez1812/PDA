@@ -40,15 +40,12 @@ module DecodeStage #(parameter N=32)
 	   (input  logic clk, WE3,
 		input  int   inst, pc, WD3,
 		output bit   [3:0] A1, A2,
+		output inst_header inst_head,
 		output deco_exe_interface deco_exe_inter_deco);
 	
 	logic regSrcA1, regSrcA2, bLink;
-	inst_deco inst_dec;
+	inst_arguments inst_arguments;
 	deco_exe_cu_signals deco_exe_cu_sig_deco;
-
-	ControlUnit UnidadControl 
-	   (inst_dec.op, inst_dec.cmd, inst_dec.Rd, inst_dec.immSignal, //inputs
-		deco_exe_cu_sig_deco, regSrcA1, regSrcA2, bLink); //outputs
 
 	RegisterFile #(4, N) BancoRegistro 
 	   (clk, WE3, A1, A2, A3, WD3, pc, 
@@ -60,16 +57,16 @@ module DecodeStage #(parameter N=32)
 	 ***********************************************/
 	//Extend Extension (ImmMux, ImmSrc, ImmExt, ExtImm);
 	
-	assign A1 = (regSrcA1) ? 32'd15      : inst_dec.Rn;
-	assign A2 = (regSrcA2) ? inst_dec.Rd : inst_dec.Rs;
+	assign A1 = (regSrcA1) ? 32'd15 : inst_arguments.Rn;
+	assign A2 = (regSrcA2) ? inst_arguments.Rd : inst_arguments.Rs;
 
-	assign inst_dec.imm  = inst[26:0];
-	assign inst_dec.cmd  = inst[25:21];
-	assign inst_dec.Rd   = inst[20:17];
-	assign inst_dec.Rn   = inst[16:13];
-	assign inst_dec.Rs   = inst[3:0];
-	assign inst_dec.cond = inst[31:29];
-	assign inst_dec.op   = inst[28:27];
-	assign inst_dec.immSignal = inst[26];
+	assign inst_arguments.imm  = inst[26:0];
+	assign inst_arguments.Rd   = inst[20:17];
+	assign inst_arguments.Rn   = inst[16:13];
+	assign inst_arguments.Rs   = inst[3:0];
+	assign inst_arguments.cond = inst[31:29];
+	assign inst_head.cmd  = inst[25:21];
+	assign inst_head.op   = inst[28:27];
+	assign inst_head.immSignal = inst[26];
 	assign deco_exe_inter_deco = inst_dec.Rd;
 endmodule 
