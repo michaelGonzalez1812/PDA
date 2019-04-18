@@ -32,22 +32,25 @@
 				Prof. Ronald Garcia
 *********************************************************************
 */
-module MemoryStage #(parameter N = 32) 
-						  (input logic clk, MEMWrite, MemPWrite, PCSrc, RegWrite, IOFlag,
-							input logic [1:0] MemToReg,
-							input logic [N-1:0] address, WriteData,
-							input logic [3:0] RdIn,
-							output logic [N-1:0] ReadDataDataMem, ReadDataPixMem, ALUresultOut,
-							output logic [3:0]  RdOut,
-							output logic PCSrcOut, RegWriteOut, IOFlagOut,
-							output logic [1:0] MemToRegOut);
-	
-	Memory data_memory(clk, MEMWrite, address, WriteData, ReadDataDataMem);
 
-	assign ALUresultOut = address;
-	assign RdOut = RdIn;
-	assign PCSrcOut = PCSrc;
-	assign RegWriteOut = RegWrite;
-	assign IOFlagOut = IOFlag;
-	assign MemToRegOut = MemToReg;
+import stages_definition_pkg::*;
+
+module MemoryStage #(parameter N = 32) 
+	   (input logic clk, 
+		input bit memWrite, memPixWrite,
+		input exe_mem_interface exe_mem_inter_mem,
+		output mem_wb_interface mem_wb_inter_mem
+		);
+	
+	/***********************************************
+	 * conectar memoria de pixeles
+	 ***********************************************/
+
+	Memory data_memory(clk, memWrite, //input
+		exe_mem_inter_mem.aluResult, exe_mem_inter_mem.WD, //input
+		mem_wb_inter_mem.dataMemRead); //output
+
+	assign mem_wb_inter_mem.aluResult = exe_mem_inter_mem.aluResult;
+	assign mem_wb_inter_mem.Rd = exe_mem_inter_mem.Rd; 
+	
 endmodule

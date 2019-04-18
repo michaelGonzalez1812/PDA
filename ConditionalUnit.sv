@@ -36,6 +36,7 @@ endmodule
 				Prof. Ronald Garcia
 ***********************************************
 **/
+/*
 module ConditionalUnit (input logic z, v, n, enable1, enable2, clk, // enable1 es FlagWrite/CMP, enable2 es BranchInst
 								input logic [2:0] cond, // CondFlag
 								output logic out); // sale PCSrc
@@ -55,4 +56,19 @@ module ConditionalUnit (input logic z, v, n, enable1, enable2, clk, // enable1 e
 						1'b1, // salto incondicional
 						cond, outCond);
 	assign out = (enable2) ? outCond : 1'b0 ;
-endmodule 
+endmodule */
+
+import stages_definition_pkg::*;
+
+module ConditionalUnit (input logic clk,
+	input  bit [2:0] cond,
+	input  conditional_flags cond_flags,
+	input  bit flagWrite, memPixWrite, branch, memWrite, regWrite, pcSrc,
+	output bit memPixWriteOut, memWriteOut, regWriteOut, pcSrcOut, branchOut);
+
+	assign memPixWriteOut = memPixWrite;
+	assign memWriteOut = memWrite;
+	assign regWriteOut = regWrite;
+	assign pcSrcOut = pcSrc;
+	assign branchOut = branch;
+endmodule
