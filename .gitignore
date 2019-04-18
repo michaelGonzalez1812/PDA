@@ -15,3 +15,4 @@ wlft*
 test*
 ArquitecturaHybridARMIPS_assignment_defaults.qdf
 wave.do
+DUTcompile.do
