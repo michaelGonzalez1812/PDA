@@ -1,41 +1,33 @@
 module ALU_tb();
-	logic [7:0] a,b, out;
-	logic [3:0] sel;
-	logic z,n,v;
-	ALU #(8) DUT (a,b,sel,z,n,v,out);
-	initial begin 
-		a=8'b1111111;
-		b=8'b101;
-		sel=4'b0; // nop
-		#1
-		sel=4'b1; // ADD
-		#1
-		a=8'hCC;
-		b=8'hCC;
-		sel=4'b10;  // SUB
-		#1
-		a=8'd57;
-		b=8'd51;
-		sel=4'b10;  // SUB
-		#1
-		a=8'd30;
-		b=8'd100;
-		sel=4'b10;  // SUB
-		#1
-		a=8'b11111111;
-		b=8'b10;		
-		sel=4'b11; // SHIFT LEFT
-		#1
-		sel=4'b100; // SHIFT RIGHT
-		#1
-		sel=4'b101; // AND
-		#1
-		sel=4'b110; // OR
-		#1
-		sel=4'b111; // OPER B
-		#1
-		sel=4'b1000; // OPER A
-		#1
-		sel=4'b1001; // Vcc
+
+logic [31:0] a;
+logic [31:0] b;
+logic [3:0] control;
+logic [31:0] result;
+logic [3:0] ALUFlags;
+logic clk;
+logic [16:0] contador;
+
+
+	ALU DUT (a,b,control,result,ALUFlags);
+
+	initial begin
+		a = 32'b11;
+		b = 32'b11;
+		clk=1'b0;
+        control = 32'b0001;
+		contador = 16'b0;
 	end
+
+	always begin
+		#1
+		clk=~clk;
+	end
+
+	always@(posedge clk) begin
+		contador <= contador + 1;
+		if (contador >= 5)
+			$stop;
+	end
+
 endmodule 
