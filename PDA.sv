@@ -76,6 +76,7 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	DecodeStage #(32) decode_stage (clk, mem_wb_cu_sig_wb.regWrite, //input
 		instInDeco, pcFetch, wbOutput, //input
 		regSrcA1, regSrcA2, bLink, //input
+		mem_wb_inter_wb.Rd,
 		hazard_in.decoA1, hazard_in.decoA2, //output
 		inst_head, deco_exe_inter_deco); //output
 
