@@ -32,75 +32,81 @@ module LUT( input logic op_selector, clk,
             input logic [31:0] angle,
             output logic [31:0] value);  
             
-    //valores temporales        
-    logic [31:0] tmp1;
-    logic [31:0] tmp2;
-    logic [31:0] tmp3; 
-    logic [31:0] tmp4;
+    //valores temporales para coseno      
+    logic [31:0] tmp1C;
+    logic [31:0] tmp2C;
+    logic [31:0] tmp3C; 
+    logic [31:0] tmp4C;
 
-    //angulos calculados
-    logic [31:0] atmp1; 
-    logic [31:0] atmp2; 
-    logic [31:0] atmp3; 
-    logic [31:0] atmp4; 
+    //variables temporales para seno
+    logic [31:0] tmp1S;
+    logic [31:0] tmp2S;
+    logic [31:0] tmp3S; 
+    logic [31:0] tmp4S;
 
-    //ángulos equivalentes
-    assign atmp1 = angle; 
-    assign atmp2 = 32'b10110100 - angle; 
-    assign atmp3 = -(32'b10110100 - angle); 
-    assign atmp4 = 32'b101101000 - angle; ; 
-    
-    SenLUT coseno1 (clk, atmp1, tmp1);
-    SenLUT coseno2 (clk, atmp2, tmp2);
-    SenLUT coseno3 (clk, atmp3, tmp3);
-    SenLUT coseno4 (clk, atmp4, tmp4);
+    //angulos calculados para coseno
+    logic [31:0] atmp1C; 
+    logic [31:0] atmp2C; 
+    logic [31:0] atmp3C; 
+    logic [31:0] atmp4C; 
+
+    //angulos calculados para seno
+    logic [31:0] atmp1S; 
+    logic [31:0] atmp2S; 
+    logic [31:0] atmp3S; 
+    logic [31:0] atmp4S; 
+
+    //ángulos equivalentes para coseno
+    assign atmp1C = 32'b1011010 - angle; 
+    assign atmp2C = 32'b1011010 - angle; 
+    assign atmp3C = 32'b1111000 - angle; 
+    assign atmp4C = -(32'b100001110 - angle); 
+
+    //ángulos equivalentes para seno
+    assign atmp1S = angle; 
+    assign atmp2S = 32'b10110100 - angle; 
+    assign atmp3S = -(32'b10110100 - angle); 
+    assign atmp4S = 32'b101101000 - angle; ; 
+
+    SenLUT coseno1 (clk, atmp1C, tmp1C);
+    SenLUT coseno2 (clk, atmp2C, tmp2C);
+    SenLUT coseno3 (clk, atmp3C, tmp3C);
+    SenLUT coseno4 (clk, atmp4C, tmp4C);
+
+    SenLUT seno1 (clk, atmp1C, tmp1S);
+    SenLUT seno2 (clk, atmp2C, tmp2S);
+    SenLUT seno3 (clk, atmp3C, tmp3S);
+    SenLUT seno4 (clk, atmp4C, tmp4S);
 
     always_ff @ (posedge clk) begin
-            $display("%s","atmp1");
-            $display("%b",atmp1);
-            $display("%s","atmp2");
-            $display("%b",atmp2);
-            $display("%s","atmp3");
-            $display("%b",atmp3);
-            $display("%s","atmp4");
-            $display("%b",atmp4);
-
-            $display("%s","tmp1");
-            $display("%b",tmp1);
-            $display("%s","tmp2");
-            $display("%b",tmp2);
-            $display("%s","tmp3");
-            $display("%b",tmp3);
-            $display("%s","tmp4");
-            $display("%b",tmp4);
         //coseno
         if (op_selector == 1) begin
             if(32'b0 <= angle && angle <= 32'b1011010) begin
-                value = tmp1;
+                value <= tmp1C;
             end
             else if(32'b1011011 <= angle && angle <= 32'b10110100) begin
-                value = tmp2;
+                value <= tmp2C;
             end
             else if(32'b10110101 <= angle && angle <= 32'b100001110) begin
-                value = tmp3;
+                value <= tmp3C;
             end
             else if(32'b100001111 <= angle &&angle <= 32'b101101000) begin
-                value = tmp4;
+                value <= tmp4C;
             end
         end
         //seno
         else begin
             if(32'b0 <= angle && angle <= 32'b1011010) begin
-                value = tmp1;
+                value <= tmp1S;
             end
             else if(32'b1011011 <= angle && angle <= 32'b10110100) begin
-                value = tmp2;
+                value <= tmp2S;
             end
              else if(32'b10110101 <= angle && angle <= 32'b100001110) begin
-                value = tmp3;
+                value <= tmp3S;
             end
             else if(32'b100001111 <= angle &&angle <= 32'b101101000) begin
-                value = tmp4;
+                value <= tmp4S;
             end
         end
     end
