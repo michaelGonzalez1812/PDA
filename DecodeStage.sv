@@ -40,7 +40,8 @@ module DecodeStage #(parameter N=32)
 	   (input  logic clk, regWrite,
 		input  int   inst, pc, WD3,
 		input  logic regSrcA1, regSrcA2, bLink,
-		output bit   [3:0] A1, A2,
+		input  bit   [3:0] A3,
+		output bit   [3:0] A1, A2, 
 		output inst_header inst_head,
 		output deco_exe_interface deco_exe_inter_deco);
 	

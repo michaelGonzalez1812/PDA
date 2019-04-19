@@ -30,12 +30,25 @@ import cu_definitions_pkg::*;
 module ControlUnit(input inst_header inst_head,
 		output deco_exe_cu_signals ctr_signal, 
 		output bit RegSrcA1, RegSrcA2, bLink);
+	
 	always_comb begin
-		if(inst_head.op == PROCESSING) begin
-			if (inst_head.immSignal == WITHOUT_IMM) begin
-				if (inst_head.cmd == AND) begin
-					add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-				end
+		unique if(inst_head.op == PROCESSING) begin
+			unique if (inst_head.immSignal == WITHOUT_IMM) begin
+				unique case (inst_head.cmd)
+					NOP: nop_signals (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					AND: and_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					XOR: xor_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					SUB: sub_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					ADD: add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					CMP: cmp_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+				endcase
+			end else if (inst_head.immSignal == WITH_IMM) begin
+			/*************************************************
+			 *	aun sin definir
+			 ************************************************/
+				unique case (inst_head.cmd)
+					AND: add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+				endcase
 			end
 		end
 	end
