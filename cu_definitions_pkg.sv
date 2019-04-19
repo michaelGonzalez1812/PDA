@@ -83,4 +83,88 @@ package cu_definitions_pkg;
             ctr_signal.flagWrite = 1'b0;
         end
     endtask
+    
+    task xor_withoutimm (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink);
+        begin
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            ctr_signal.regWrite = 1'b1;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.aluControl = 4'b0100;
+            ctr_signal.memToReg = 2'b01;
+            ctr_signal.flagWrite = 1'b0;
+        end
+    endtask
+
+    task sub_withoutimm (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink);
+        begin
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            ctr_signal.regWrite = 1'b1;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.aluControl = 4'b0001;
+            ctr_signal.memToReg = 2'b01;
+            ctr_signal.flagWrite = 1'b0;
+        end
+    endtask
+
+    task add_withoutimm (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink);
+        begin
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            ctr_signal.regWrite = 1'b1;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.aluControl = 4'b0010;
+            ctr_signal.memToReg = 2'b01;
+            ctr_signal.flagWrite = 1'b0;
+        end
+    endtask
+
+    task cmp_withoutimm (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink);
+        begin
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            ctr_signal.regWrite = 1'b0;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.aluControl = 4'b0001;
+            ctr_signal.memToReg = 2'b00;
+            ctr_signal.flagWrite = 1'b1;
+        end
+    endtask
+    //------------------------------voy por aqui
+    task orr_withoutimm (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink);
+        begin
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            ctr_signal.regWrite = 1'b0;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.aluControl = 4'b0001;
+            ctr_signal.memToReg = 2'b00;
+            ctr_signal.flagWrite = 1'b1;
+        end
+    endtask
+
+    task mov_withoutimm (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink);
+        begin
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            ctr_signal.regWrite = 1'b0;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.aluControl = 4'b0001;
+            ctr_signal.memToReg = 2'b00;
+            ctr_signal.flagWrite = 1'b1;
+        end
+    endtask
+
+    task ls_withoutimm (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink);
+        begin
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            ctr_signal.regWrite = 1'b0;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.aluControl = 4'b0001;
+            ctr_signal.memToReg = 2'b00;
+            ctr_signal.flagWrite = 1'b1;
+        end
+    endtask
 endpackage

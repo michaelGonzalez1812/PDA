@@ -37,6 +37,10 @@ module ControlUnit(input inst_header inst_head,
 				unique case (inst_head.cmd)
 					NOP: nop_signals (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 					AND: and_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					XOR: xor_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					SUB: sub_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					ADD: add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					CMP: cmp_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 				endcase
 			end else if (inst_head.immSignal == WITH_IMM) begin
 			/*************************************************
