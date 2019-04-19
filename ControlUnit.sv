@@ -41,6 +41,8 @@ module ControlUnit(input inst_header inst_head,
 					SUB: sub_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 					ADD: add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 					CMP: cmp_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					ORR: orr_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					MOV: mov_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 				endcase
 			end else if (inst_head.immSignal == WITH_IMM) begin
 			/*************************************************
