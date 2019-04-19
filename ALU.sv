@@ -78,6 +78,7 @@ module restadorNbits #(parameter N = 32)
 			zero <= 1;
 		end else if(A<B)begin
 			negativo <= 1;
+			zero <= 0;
 		end else begin 						
 			zero <= 0;
 			negativo <= 0;
