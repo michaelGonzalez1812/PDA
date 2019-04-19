@@ -45,7 +45,7 @@ module ExecuteStage #(parameter N=32)
 	 * conectar unidad de trigonometria
 	 ***********************************************/
 	
-	ALU #(N) alu (aluSrc1, aluSrc2, aluControl, cond_flags.z, cond_flags.n, cond_flags.v, exe_mem_inter_exe.aluResult);
+	ALU #(N) alu (aluSrc1, aluSrc2, aluControl, exe_mem_inter_exe.aluResult, cond_flags);
 	
 	assign aluSrc1 = (forwardAluSrc1 == 2'b00)? deco_exe_inter_exe.RD1 :
 					 (forwardAluSrc1 == 2'b01)? forwardFromWb : forwardFromMem;

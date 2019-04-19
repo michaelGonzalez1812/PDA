@@ -46,7 +46,7 @@ package stages_definition_pkg;
     } mem_wb_interface;
 
     typedef struct packed {
-        bit z, v, n;
+        bit n, z, c, v;
     } conditional_flags;
 
     typedef struct packed {

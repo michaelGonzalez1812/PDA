@@ -78,7 +78,7 @@ package cu_definitions_pkg;
             processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
-            ctr_signal.aluControl = 4'b0101;
+            ctr_signal.aluControl = 4'b0001;
             ctr_signal.memToReg = 2'b01;
             ctr_signal.flagWrite = 1'b0;
         end
