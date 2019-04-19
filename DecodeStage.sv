@@ -68,6 +68,7 @@ module DecodeStage #(parameter N=32)
 	assign inst_arguments.cond = inst[31:29];
 	assign inst_head.cmd  = inst[25:21];
 	assign inst_head.op   = inst[28:27];
+	assign inst_head.Rd = inst[20:17];
 	assign inst_head.immSignal = inst[26];
-	assign deco_exe_inter_deco.Rd = inst_arguments.Rd;
+	assign deco_exe_inter_deco.Rd = inst[20:17];
 endmodule 

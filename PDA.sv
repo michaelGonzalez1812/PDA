@@ -108,12 +108,12 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	assign hazard_out.forwardAy = 0;
 
 	/**********************************************
-	*	execute control signals assigment 
+	*	execute stage signals assigment 
 	*********************************************/
 	assign exe_mem_cu_sig_exe.memToReg = deco_exe_cu_sig_exe.memToReg;
 
 	/**********************************************
-	*	execute control signals assigment 
+	*	memory stage signals assigment 
 	*********************************************/
 	assign mem_wb_cu_sig_mem.pcSrc = exe_mem_cu_sig_mem.pcSrc;
 	assign mem_wb_cu_sig_mem.regWrite = exe_mem_cu_sig_mem.regWrite;

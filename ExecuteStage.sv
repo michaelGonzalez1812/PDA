@@ -57,4 +57,5 @@ module ExecuteStage #(parameter N=32)
 	assign exe_mem_inter_exe.Ay = (forwardAy == 2'b00)? deco_exe_inter_exe.R1 :
 					 (forwardAy == 2'b01)? forwardFromWb : forwardFromMem;
 	assign exe_mem_inter_exe.WD = aluSrc2Forward;
+	assign exe_mem_inter_exe.Rd = deco_exe_inter_exe.Rd;
 endmodule 
