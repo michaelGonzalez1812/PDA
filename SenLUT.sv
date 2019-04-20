@@ -23,12 +23,11 @@
 				Prof. Ronald Garcia
 ***********************************************
 **/
-module SenLUT( input logic clk,
-            input logic [31:0] angle,
-            output logic [31:0] value);  
+module SenLUT( input logic [31:0] angle,
+               output logic [31:0] value);  
 
     
-    always_ff @ (posedge clk) begin
+    always @* begin
         case (angle) 
             32'b1: value = 32'b00111111010101110110101010100100;
             32'b10: value = 32'b00111111011010001100011110110111;
