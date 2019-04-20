@@ -73,12 +73,23 @@ module LUT( input logic op_selector,
     SenLUT coseno3 (atmp3C, tmp3C);
     SenLUT coseno4 (atmp4C, tmp4C);
 
-    SenLUT seno1 (atmp1C, tmp1S);
-    SenLUT seno2 (atmp2C, tmp2S);
-    SenLUT seno3 (atmp3C, tmp3S);
-    SenLUT seno4 (atmp4C, tmp4S);
+    SenLUT seno1 (atmp1S, tmp1S);
+    SenLUT seno2 (atmp2S, tmp2S);
+    SenLUT seno3 (atmp3S, tmp3S);
+    SenLUT seno4 (atmp4S, tmp4S);
 
-    always @* begin
+    assign value = op_selector ? ((32'b0 <= angle && angle <= 32'b1011010) ? (tmp1C) 
+                : ((32'b1011011 <= angle && angle <= 32'b10110100) ? (tmp2C) 
+                : ((32'b10110101 <= angle && angle <= 32'b100001110) ? (tmp3C) 
+                : ((32'b100001111 <= angle &&angle <= 32'b101101000) ? (tmp4C) 
+                : (31'b0))))) 
+                : ((32'b0 <= angle && angle <= 32'b1011010) ? (tmp1S) 
+                : ((32'b1011011 <= angle && angle <= 32'b10110100) ? (tmp2S) 
+                : ((32'b10110101 <= angle && angle <= 32'b100001110) ? (tmp3S) 
+                : ((32'b100001111 <= angle &&angle <= 32'b101101000) ? (tmp4S) 
+                : (31'b0)))));
+
+    /* always @* begin
         //coseno
         if (op_selector == 1) begin
             if(32'b0 <= angle && angle <= 32'b1011010) begin
@@ -109,6 +120,6 @@ module LUT( input logic op_selector,
                 value <= tmp4S;
             end
         end
-    end
+    end */
  
 endmodule

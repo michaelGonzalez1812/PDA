@@ -11,9 +11,19 @@ module LUT_tb();
     initial begin
 		// ADD
         clk=1'b0;
+		contador = 16'b0;
+		op_selector = 0;
+        angle = 32'b1;
+        #2;
+		op_selector = 0;
+        angle = 32'b11;
+        #2;
 		op_selector = 1;
-        angle = 32'b111111;
-        contador = 16'b0;
+        angle = 32'b10;
+        #2;
+		op_selector = 0;
+        angle = 32'b100;
+        #2;
 	end
 	
 	always begin
