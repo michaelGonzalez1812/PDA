@@ -57,6 +57,15 @@ module ControlUnit(input inst_header inst_head,
 					AND: add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 				endcase
 			end
+		end else if (inst_head.op == MEMORY) begin
+			unique case (inst_head.cmd[4:3])
+				LDR:
+				STR:
+				RDP:
+				WRP:
+			endcase
+		end else begin //FLOW
+
 		end
 	end
 endmodule 

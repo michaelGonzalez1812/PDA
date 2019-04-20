@@ -42,9 +42,9 @@ module MemoryStage #(parameter N = 32)
 		output mem_wb_interface mem_wb_inter_mem
 		);
 	
-	/***********************************************
-	 * conectar memoria de pixeles
-	 ***********************************************/
+	PixelsMemory pixelsMemory(clk, memPixWrite, exe_mem_inter_mem.Ax, //input
+		exe_mem_inter_mem.Ay, exe_mem_inter_mem.WD, //input
+		mem_wb_inter_mem.pixMemRead); //output
 
 	Memory data_memory(clk, memWrite, //input
 		exe_mem_inter_mem.aluResult, exe_mem_inter_mem.WD, //input
