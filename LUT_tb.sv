@@ -1,11 +1,10 @@
 module LUT_tb();
-    logic op_selector, clk;
+    logic op_selector,clk;
     logic [31:0] angle;
     logic [31:0] value; 
     logic [16:0] contador;
 
     LUT DUT(op_selector,
-                clk,
                 angle,
                 value);
  

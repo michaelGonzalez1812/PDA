@@ -28,7 +28,7 @@
 				Prof. Ronald Garcia
 ***********************************************
 **/
-module LUT( input logic op_selector, clk,
+module LUT( input logic op_selector,
             input logic [31:0] angle,
             output logic [31:0] value);  
             
@@ -68,17 +68,17 @@ module LUT( input logic op_selector, clk,
     assign atmp3S = -(32'b10110100 - angle); 
     assign atmp4S = 32'b101101000 - angle; ; 
 
-    SenLUT coseno1 (clk, atmp1C, tmp1C);
-    SenLUT coseno2 (clk, atmp2C, tmp2C);
-    SenLUT coseno3 (clk, atmp3C, tmp3C);
-    SenLUT coseno4 (clk, atmp4C, tmp4C);
+    SenLUT coseno1 (atmp1C, tmp1C);
+    SenLUT coseno2 (atmp2C, tmp2C);
+    SenLUT coseno3 (atmp3C, tmp3C);
+    SenLUT coseno4 (atmp4C, tmp4C);
 
-    SenLUT seno1 (clk, atmp1C, tmp1S);
-    SenLUT seno2 (clk, atmp2C, tmp2S);
-    SenLUT seno3 (clk, atmp3C, tmp3S);
-    SenLUT seno4 (clk, atmp4C, tmp4S);
+    SenLUT seno1 (atmp1C, tmp1S);
+    SenLUT seno2 (atmp2C, tmp2S);
+    SenLUT seno3 (atmp3C, tmp3S);
+    SenLUT seno4 (atmp4C, tmp4S);
 
-    always_ff @ (posedge clk) begin
+    always @* begin
         //coseno
         if (op_selector == 1) begin
             if(32'b0 <= angle && angle <= 32'b1011010) begin
