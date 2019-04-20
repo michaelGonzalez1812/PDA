@@ -43,6 +43,11 @@ module ControlUnit(input inst_header inst_head,
 					CMP: cmp_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 					ORR: orr_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 					MOV: mov_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					LSL: lsl_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					LSR: lsr_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					MUL: mul_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					SIN: sin_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
+					COS: cos_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
 				endcase
 			end else if (inst_head.immSignal == WITH_IMM) begin
 			/*************************************************
