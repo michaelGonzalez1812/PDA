@@ -1,7 +1,7 @@
 package stages_definition_pkg;
     typedef struct packed {
         bit pcSrc, regWrite, memWrite, branch, aluSrc, 
-            flagWrite, immSrc, trigControl, memPixWrite;
+            flagWrite, trigControl, memPixWrite;
         bit [1:0] memToReg;
         bit [3:0] aluControl;
     } deco_exe_cu_signals;
@@ -17,7 +17,7 @@ package stages_definition_pkg;
     } mem_wb_cu_signals;
 
     typedef struct packed {
-        bit [26:0] imm;
+        bit [25:0] imm;
         bit [3:0]  Rd, Rn, Rs;
         bit [2:0]  cond;
     } instruction_arguments;

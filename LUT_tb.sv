@@ -12,17 +12,22 @@ module LUT_tb();
 		// ADD
         clk=1'b0;
 		contador = 16'b0;
+
 		op_selector = 0;
-        angle = 32'b1;
-        #2;
-		op_selector = 0;
-        angle = 32'b11;
+        angle = 32'd30;
+
         #2;
 		op_selector = 1;
-        angle = 32'b10;
+        angle = 32'd30;
+
+        #2;
+		op_selector = 1;
+        angle = 32'd60;
+
         #2;
 		op_selector = 0;
         angle = 32'b100;
+
         #2;
 	end
 	

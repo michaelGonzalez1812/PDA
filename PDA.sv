@@ -56,9 +56,10 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	int instFetch, instInDeco, wbOutput, pcFetch;
 	bit pcSrcExe;
 	bit regSrcA1, regSrcA2, bLink;
+	bit [1:0] immSrc;
 	
 	ControlUnit cu (inst_head, //input
-		deco_exe_cu_sig_deco, regSrcA1, regSrcA2, bLink); //output
+		deco_exe_cu_sig_deco, regSrcA1, regSrcA2, bLink, immSrc); //output
 
 	ConditionalUnit condUnit (clk, deco_exe_inter_exe.cond, //input
 		cond_flags, deco_exe_cu_sig_exe.flagWrite, //input
@@ -76,7 +77,7 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	DecodeStage #(32) decode_stage (clk, mem_wb_cu_sig_wb.regWrite, //input
 		instInDeco, pcFetch, wbOutput, //input
 		regSrcA1, regSrcA2, bLink, //input
-		mem_wb_inter_wb.Rd,
+		mem_wb_inter_wb.Rd, immSrc, //input
 		hazard_in.decoA1, hazard_in.decoA2, //output
 		inst_head, deco_exe_inter_deco); //output
 
@@ -95,7 +96,7 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 		wbOutput); //output
 						 
 	Register #(32) if_de (instFetch, ~clk, 1'b1, instInDeco);
-	Register #(182) deco_exe ({deco_exe_cu_sig_deco, deco_exe_inter_deco}, ~clk,
+	Register #(181) deco_exe ({deco_exe_cu_sig_deco, deco_exe_inter_deco}, ~clk,
 		1'b1, {deco_exe_cu_sig_exe, deco_exe_inter_exe});
 	Register #(170) exe_mem ({exe_mem_cu_sig_exe, exe_mem_inter_exe}, ~clk,
 		1'b1, {exe_mem_cu_sig_mem, exe_mem_inter_mem});
