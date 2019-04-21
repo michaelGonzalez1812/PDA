@@ -55,8 +55,7 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 
 	int instFetch, instInDeco, wbOutput, pcFetch;
 	bit pcSrcExe;
-	bit regSrcA1, regSrcA2, bLink;
-	bit [1:0] immSrc;
+	bit regSrcA1, regSrcA2, bLink, immSrc;
 	
 	ControlUnit cu (inst_head, //input
 		deco_exe_cu_sig_deco, regSrcA1, regSrcA2, bLink, immSrc); //output
@@ -76,8 +75,8 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 					
 	DecodeStage #(32) decode_stage (clk, mem_wb_cu_sig_wb.regWrite, //input
 		instInDeco, pcFetch, wbOutput, //input
-		regSrcA1, regSrcA2, bLink, //input
-		mem_wb_inter_wb.Rd, immSrc, //input
+		regSrcA1, regSrcA2, bLink, immSrc, //input
+		mem_wb_inter_wb.Rd, //input
 		hazard_in.decoA1, hazard_in.decoA2, //output
 		inst_head, deco_exe_inter_deco); //output
 

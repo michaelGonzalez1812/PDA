@@ -26,15 +26,13 @@
 ***********************************************
 **/
 module Extend (input bit [25:0] imm,
-		input  bit[1:0] ImmSrc,
+		input  bit ImmSrc,
 		output int ExtImm);
 
-	int ext13, ext17, ext26;
+	int ext13, ext26;
 
 	assign ext13 = { {19{imm[12]}}, imm[12:0] }; 
-	assign ext17 = { {15{imm[16]}}, imm[16:0] }; 
 	assign ext26 = { {6{imm[25]}} , imm};
 
-	assign ExtImm = (ImmSrc == 2'b00) ? ext13 :
-					(ImmSrc == 2'b01) ? ext17 : ext26;
+	assign ExtImm = (ImmSrc) ? ext13 :ext26;
 endmodule 

@@ -39,9 +39,8 @@ import stages_definition_pkg::*;
 module DecodeStage #(parameter N=32)
 	   (input  logic clk, regWrite,
 		input  int   inst, pc, WD3,
-		input  logic regSrcA1, regSrcA2, bLink,
+		input  bit regSrcA1, regSrcA2, bLink, immSrc,
 		input  bit   [3:0] A3,
-		input  bit   [1:0] immSrc,
 		output bit   [3:0] A1, A2, 
 		output inst_header inst_head,
 		output deco_exe_interface deco_exe_inter_deco);
@@ -54,7 +53,7 @@ module DecodeStage #(parameter N=32)
 		deco_exe_inter_deco.RD1, deco_exe_inter_deco.RD2,
 		deco_exe_inter_deco.R0, deco_exe_inter_deco.R1);
 
-	Extend Extension (inst_arguments.imm, ImmSrc, deco_exe_inter_deco.imm);
+	Extend Extension (inst_arguments.imm, immSrc, deco_exe_inter_deco.imm);
 	
 	assign A1 = (regSrcA1) ? 32'd15 : inst_arguments.Rn;
 	assign A2 = (regSrcA2) ? inst_arguments.Rd : inst_arguments.Rs;

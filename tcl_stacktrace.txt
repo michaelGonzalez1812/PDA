@@ -1,0 +1,33 @@
+Sat Apr 20 23:49:47 CST 2019
+Trace back: can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array
+    while executing
+"if {$vsimMem(memIsEnum:$memName) == 0} {
+						if {[catch {transcribe mem load  -filltype value -filldata $chg  -fillradix $vsimMem(dataRadix:$memName..."
+    (procedure "Memtool::DataInPlaceSave" line 17)
+    invoked from within
+"Memtool::DataInPlaceSave 1 108  .main_pane.memdata.interior.cs.body .main_pane.memdata.interior.cs.body.datapane.dpane2.tframe2"
+    (command bound to event)
+  <2:C:/intelFPGA_lite/18.0/modelsim_ase/win32aloem/tk8.5/bgerror.tcl:92: ::tkerror {can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array}
+  <1:proc:28: ::tk::dialog::error::bgerror {can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array}
+Sat Apr 20 23:56:54 CST 2019
+Trace back: can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array
+    while executing
+"if {$vsimMem(memIsEnum:$memName) == 0} {
+						if {[catch {transcribe mem load  -filltype value -filldata $chg  -fillradix $vsimMem(dataRadix:$memName..."
+    (procedure "Memtool::DataInPlaceSave" line 17)
+    invoked from within
+"Memtool::DataInPlaceSave 1 80  .main_pane.memdata.interior.cs.body .main_pane.memdata.interior.cs.body.datapane.dpane2.tframe2"
+    (command bound to event)
+  <2:C:/intelFPGA_lite/18.0/modelsim_ase/win32aloem/tk8.5/bgerror.tcl:92: ::tkerror {can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array}
+  <1:proc:28: ::tk::dialog::error::bgerror {can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array}
+Sun Apr 21 00:12:55 CST 2019
+Trace back: can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array
+    while executing
+"if {$vsimMem(memIsEnum:$memName) == 0} {
+						if {[catch {transcribe mem load  -filltype value -filldata $chg  -fillradix $vsimMem(dataRadix:$memName..."
+    (procedure "Memtool::DataInPlaceSave" line 17)
+    invoked from within
+"Memtool::DataInPlaceSave 1 2  .main_pane.memdata.interior.cs.body .main_pane.memdata.interior.cs.body.datapane.dpane2.tframe2"
+    (command bound to event)
+  <2:C:/intelFPGA_lite/18.0/modelsim_ase/win32aloem/tk8.5/bgerror.tcl:92: ::tkerror {can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array}
+  <1:proc:28: ::tk::dialog::error::bgerror {can't read "vsimMem(memIsEnum:/PDA_tb/DUT/memory_stage/pixelsMemory/mem(0))": no such element in array}
