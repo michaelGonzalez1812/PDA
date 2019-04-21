@@ -597,7 +597,7 @@ def src2State(line):
         src2=src2[:len(src2)-1]
 
     if src2 in REGISTERS:
-        encodedLine = editString2(encodedLine,19,22,getRegisterEncode(src2))
+        encodedLine = editString2(encodedLine,28,31,getRegisterEncode(src2))
         encodedLine = editString1(encodedLine,5,"0")
         if  insCounter<len(splitLine) and splitLine[insCounter][0]!=";":
             newState="ErrorState"
