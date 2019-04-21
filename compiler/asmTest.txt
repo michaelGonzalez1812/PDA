@@ -1,0 +1,14 @@
+
+;sdfsdfs
+
+hi:
+ldrgt R9, r3, #7   ;asdasd
+bne thisisalonglabel
+addle R11, r7, r5    ;asdasd
+thisisalonglabel:
+addle R11, r7, #72    ;asdasd
+beq hi
+Wrp r13   ; huehue
+Wrp r12   ; huehue
+blt thisisalonglabel
+rdpne r8   ; huehue
