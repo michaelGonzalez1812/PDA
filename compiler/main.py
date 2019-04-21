@@ -599,7 +599,7 @@ def src2State(line):
     if src2 in REGISTERS:
         encodedLine = editString2(encodedLine,19,22,getRegisterEncode(src2))
         encodedLine = editString1(encodedLine,5,"0")
-        if  insCounter<=len(splitLine) and splitLine[insCounter][0]!=";":
+        if  insCounter<len(splitLine) and splitLine[insCounter][0]!=";":
             newState="ErrorState"
             return (newState,line)    
         newState="doneState"
@@ -609,7 +609,7 @@ def src2State(line):
         binarySrc2 = bindigits(int(src2),13)
         encodedLine = editString2(encodedLine,19,31,binarySrc2)
         encodedLine = editString1(encodedLine,5,"1")
-        if  insCounter<=len(splitLine) and splitLine[insCounter][0]!=";":
+        if  insCounter<len(splitLine) and splitLine[insCounter][0]!=";":
             newState="ErrorState"
             return (newState,line) 
         newState="doneState"
@@ -637,6 +637,7 @@ def main():
     m.add_state("orrState", orrState)
     m.add_state("movState", movState)
     m.add_state("lslState", lslState)
+    m.add_state("lsrState", lslState)
     m.add_state("mulState", mulState)
     m.add_state("sinState", sinState)
     m.add_state("cosState", cosState)
@@ -669,7 +670,7 @@ def main():
         print(lineCounter)
         if m.run(l):
             if writeLineFlag:
-                F2.write(encodedLine + "\r\n")
+                F2.write(encodedLine + "\r")
             encodedLine ="00000000000000000000000000000000"
             insCounter = 0
             lineCounter+=1
