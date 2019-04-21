@@ -432,6 +432,7 @@ def ldrState(line):
     encodedLine = editString2(encodedLine,0,2,getCondEncode(op))
     encodedLine = editString2(encodedLine,6,7,"00")
     encodedLine = editString2(encodedLine,3,4,"01")
+    encodedLine = editString1(encodedLine,5,"1")#imm = 1
     rx = splitLine[insCounter].upper()
     if rx[len(rx)-1]==",":
         rx=rx[:len(rx)-1]
@@ -452,6 +453,7 @@ def strState(line):
     encodedLine = editString2(encodedLine,0,2,getCondEncode(op))#cond
     encodedLine = editString2(encodedLine,6,7,"01")#cmd
     encodedLine = editString2(encodedLine,3,4,"01")#op
+    encodedLine = editString1(encodedLine,5,"1")#imm = 1
     rx = splitLine[insCounter].upper()
     if rx[len(rx)-1]==",":
         rx=rx[:len(rx)-1]
@@ -472,6 +474,7 @@ def rdpState(line):
     encodedLine = editString2(encodedLine,0,2,getCondEncode(op))#cond
     encodedLine = editString2(encodedLine,6,7,"10")#cmd
     encodedLine = editString2(encodedLine,3,4,"01")#op
+    encodedLine = editString1(encodedLine,5,"1")#imm = 1
     rx = splitLine[insCounter].upper()
     if rx[len(rx)-1]==",":
         rx=rx[:len(rx)-1]
@@ -494,6 +497,7 @@ def wrpState(line):
     encodedLine = editString2(encodedLine,0,2,getCondEncode(op))#cond
     encodedLine = editString2(encodedLine,6,7,"11")#cmd
     encodedLine = editString2(encodedLine,3,4,"01")#op
+    encodedLine = editString1(encodedLine,5,"1")#imm = 1
     rx = splitLine[insCounter].upper()
     if rx[len(rx)-1]==",":
         rx=rx[:len(rx)-1]
