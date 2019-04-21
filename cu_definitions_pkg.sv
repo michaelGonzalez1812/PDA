@@ -50,13 +50,12 @@ package cu_definitions_pkg;
     *      tasks for processing without imm
     ********************************************/
     task processing_common (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+            output bit RegSrcA1, RegSrcA2, bLink, immSrc);
         begin
             ctr_signal.pcSrc = 1'b0;  
             RegSrcA1 = 1'b0;
             RegSrcA2 = 1'b0;
-            ctr_signal.immSrc = 1'b0;
-            ctr_signal.aluSrc = 1'b0;
+            immSrc = 1'b1;
             ctr_signal.memWrite = 1'b0; 
             ctr_signal.memPixWrite = 1'b0;
             ctr_signal.branch = 1'b0; 
@@ -64,10 +63,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task nop_signals (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task nop (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b0;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0000;
@@ -76,10 +76,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task and_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task and_signals (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink, 
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0101;
@@ -88,10 +89,11 @@ package cu_definitions_pkg;
         end
     endtask
     
-    task xor_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task xor_signals (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0100;
@@ -100,10 +102,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task sub_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task sub (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0001;
@@ -112,10 +115,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task add_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task add (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0010;
@@ -124,10 +128,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task cmp_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task cmp (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b0;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0001;
@@ -136,10 +141,11 @@ package cu_definitions_pkg;
         end
     endtask
     
-    task orr_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task orr (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0011;
@@ -148,10 +154,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task mov_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task mov (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink, 
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0000;
@@ -160,10 +167,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task lsl_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task lsl (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0111;
@@ -172,10 +180,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task lsr_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task lsr (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b1000;
@@ -184,10 +193,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task mul_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task mul (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0110;
@@ -196,10 +206,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task sin_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task sin (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b0; 
             ctr_signal.aluControl = 4'b0000;
@@ -208,10 +219,11 @@ package cu_definitions_pkg;
         end
     endtask
 
-    task cos_withoutimm (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+    task cos (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink,
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            processing_common (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
             ctr_signal.regWrite = 1'b1;
             ctr_signal.trigControl = 1'b1; 
             ctr_signal.aluControl = 4'b0000;
@@ -221,37 +233,74 @@ package cu_definitions_pkg;
     endtask
 
     /********************************************
-    *      tasks for memory
+    *      tasks for memory with imm
     ********************************************/
-    ctr_signal.pcSrc = 1'b0;  
-            RegSrcA1 = 1'b0;
-            RegSrcA2 = 1'b0;
-            ctr_signal.immSrc = 1'b0;
-            ctr_signal.aluSrc = 1'b0;
-            ctr_signal.memWrite = 1'b0; 
-            ctr_signal.memPixWrite = 1'b0;
-            ctr_signal.branch = 1'b0; 
-            bLink = 1'b0;
     task memory_common (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
-        begin
-            ctr_signal.regWrite = 1'b1;
-            ctr_signal.trigControl = 1'b1; 
-            ctr_signal.aluControl = 4'b0000;
-            ctr_signal.memToReg = 2'b11;
+            output bit RegSrcA1, bLink, immSrc);
+        begin 
+            ctr_signal.pcSrc = 1'b0;
+            RegSrcA1 = 1'b0;
+            immSrc = 1'b1;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.branch = 1'b0; 
             ctr_signal.flagWrite = 1'b0;
+            bLink = 1'b0;
         end
     endtask
     
     task ldr (output deco_exe_cu_signals ctr_signal,
-            output bit RegSrcA1, RegSrcA2, bLink);
+            output bit RegSrcA1, RegSrcA2, bLink, 
+            output bit immSrc);
         begin
-            processing_common (ctr_signal, RegSrcA1, RegSrcA2,bLink);
+            memory_common (ctr_signal, RegSrcA1, bLink, immSrc);
+            RegSrcA2 = 1'b0;
             ctr_signal.regWrite = 1'b1;
-            ctr_signal.trigControl = 1'b1; 
+            ctr_signal.aluControl = 4'b0010;
+            ctr_signal.memWrite = 1'b0;
+            ctr_signal.memPixWrite = 1'b0;
+            ctr_signal.memToReg = 2'b00;
+        end
+    endtask
+
+    task str (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink, 
+            output bit immSrc);
+        begin
+            memory_common (ctr_signal, RegSrcA1, bLink, immSrc);
+            RegSrcA2 = 1'b1;
+            ctr_signal.regWrite = 1'b0;
+            ctr_signal.aluControl = 4'b0010;
+            ctr_signal.memWrite = 1'b1;
+            ctr_signal.memPixWrite = 1'b0;
+            ctr_signal.memToReg = 2'b00;
+        end
+    endtask
+
+    task rdp (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink, 
+            output bit immSrc);
+        begin
+            memory_common (ctr_signal, RegSrcA1, bLink, immSrc);
+            RegSrcA2 = 1'b0;
+            ctr_signal.regWrite = 1'b1;
             ctr_signal.aluControl = 4'b0000;
-            ctr_signal.memToReg = 2'b11;
-            ctr_signal.flagWrite = 1'b0;
+            ctr_signal.memWrite = 1'b0;
+            ctr_signal.memPixWrite = 1'b0;
+            ctr_signal.memToReg = 2'b10;
+        end
+    endtask
+
+    task wrp (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink, 
+            output bit immSrc);
+        begin
+            memory_common (ctr_signal, RegSrcA1, bLink, immSrc);
+            RegSrcA2 = 1'b1;
+            ctr_signal.regWrite = 1'b0;
+            ctr_signal.aluControl = 4'b0000;
+            ctr_signal.memWrite = 1'b0;
+            ctr_signal.memPixWrite = 1'b1;
+            ctr_signal.memToReg = 2'b00;
         end
     endtask
 endpackage

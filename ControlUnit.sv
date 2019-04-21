@@ -29,43 +29,36 @@ import cu_definitions_pkg::*;
 
 module ControlUnit(input inst_header inst_head,
 		output deco_exe_cu_signals ctr_signal, 
-		output bit RegSrcA1, RegSrcA2, bLink);
+		output bit RegSrcA1, RegSrcA2, bLink,
+		output bit immSrc);
 	
 	always_comb begin
 		unique if(inst_head.op == PROCESSING) begin
-			unique if (inst_head.immSignal == WITHOUT_IMM) begin
-				unique case (inst_head.cmd)
-					NOP: nop_signals (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					AND: and_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					XOR: xor_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					SUB: sub_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					ADD: add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					CMP: cmp_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					ORR: orr_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					MOV: mov_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					LSL: lsl_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					LSR: lsr_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					MUL: mul_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					SIN: sin_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-					COS: cos_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-				endcase
-			end else if (inst_head.immSignal == WITH_IMM) begin
-			/*************************************************
-			 *	aun sin definir
-			 ************************************************/
-				unique case (inst_head.cmd)
-					AND: add_withoutimm (ctr_signal, RegSrcA1, RegSrcA2, bLink);
-				endcase
-			end
+			unique case (inst_head.cmd)
+				NOP: nop (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				AND: and_signals (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				XOR: xor_signals (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				SUB: sub (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				ADD: add (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				CMP: cmp (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				ORR: orr (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				MOV: mov (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				LSL: lsl (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				LSR: lsr (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				MUL: mul (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				SIN: sin (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				COS: cos (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+			endcase
 		end else if (inst_head.op == MEMORY) begin
 			unique case (inst_head.cmd[4:3])
-				LDR:
-				STR:
-				RDP:
-				WRP:
+				LDR: ldr (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				STR: str (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				RDP: rdp (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				WRP: wrp (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 			endcase
 		end else begin //FLOW
 
 		end
+		ctr_signal.aluSrc = inst_head.immSignal;
 	end
 endmodule 
