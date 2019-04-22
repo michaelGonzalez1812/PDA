@@ -47,7 +47,7 @@ module RegisterFile #(parameter N=4, M=32)
 			else if (A3 == 4'b1) rf[A3] <= {24'b0, WD3[7:0]};
 			else rf[A3] <= WD3;
 		
-		rf[32'd15] = pc;
+		rf[4'd15] = pc;
 	end			
 
 	assign RD1 = rf[A1];
