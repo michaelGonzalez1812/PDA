@@ -1,4 +1,4 @@
-module ConditionalUnit_tb();
+module FlagSetting_tb();
 	logic clk, out;
 	logic [2:0] cond;
 	logic [16:0] contador;

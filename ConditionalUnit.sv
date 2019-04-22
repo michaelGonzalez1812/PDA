@@ -27,7 +27,7 @@
 ***********************************************
 **/
 // Mux de selector 3 bits
-module MUX3 (input logic [3:0] d0, d1, d2, d3, d4, d5, d6, d7, d8,
+module mux3 (input logic [3:0] d0, d1, d2, d3, d4, d5, d6, d7, d8,
 		input logic [2:0] s,
 		output logic [3:0] result);
 			  

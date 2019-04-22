@@ -4,7 +4,7 @@ module PixelsMemory #(parameter N = 32) (input  logic clk, wr,
 	
 	int mem[320][240];
 	initial begin
-		$readmemb("pix.mem", mem[0]); 	
+		//$readmemb("pix.mem", mem[0]); 	
 	end
 	
 	always_ff @(negedge clk) begin

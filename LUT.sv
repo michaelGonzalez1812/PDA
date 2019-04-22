@@ -66,7 +66,7 @@ module LUT( input logic op_selector,
     assign atmp1S = angle; 
     assign atmp2S = 32'b10110100 - angle; 
     assign atmp3S = -(32'b10110100 - angle); 
-    assign atmp4S = 32'b101101000 - angle; ; 
+    assign atmp4S = 32'b101101000 - angle;
 
     SenLUT coseno1 (atmp1C, tmp1C);
     SenLUT coseno2 (atmp2C, tmp2C);

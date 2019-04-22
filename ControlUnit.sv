@@ -32,9 +32,9 @@ module ControlUnit(input inst_header inst_head,
 		output bit RegSrcA1, RegSrcA2, bLink,
 		output bit immSrc);
 	
-	always_comb begin
-		unique if(inst_head.op == PROCESSING) begin
-			unique case (inst_head.cmd)
+	always_latch begin
+		 if(inst_head.op == PROCESSING) begin
+			case (inst_head.cmd)
 				NOP: nop (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 				AND: and_signals (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 				XOR: xor_signals (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
@@ -51,7 +51,7 @@ module ControlUnit(input inst_header inst_head,
 			endcase
 			ctr_signal.aluSrc = inst_head.immSignal;
 		end else if (inst_head.op == MEMORY) begin
-			unique case (inst_head.cmd[4:3])
+			case (inst_head.cmd[4:3])
 				LDR: ldr (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 				STR: str (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 				RDP: rdp (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
