@@ -89,37 +89,5 @@ module LUT( input logic op_selector,
                 : ((32'b100001111 <= angle &&angle <= 32'b101101000) ? (tmp4S) 
                 : (31'b0)))));
 
-    /* always @* begin
-        //coseno
-        if (op_selector == 1) begin
-            if(32'b0 <= angle && angle <= 32'b1011010) begin
-                value <= tmp1C;
-            end
-            else if(32'b1011011 <= angle && angle <= 32'b10110100) begin
-                value <= tmp2C;
-            end
-            else if(32'b10110101 <= angle && angle <= 32'b100001110) begin
-                value <= tmp3C;
-            end
-            else if(32'b100001111 <= angle &&angle <= 32'b101101000) begin
-                value <= tmp4C;
-            end
-        end
-        //seno
-        else begin
-            if(32'b0 <= angle && angle <= 32'b1011010) begin
-                value <= tmp1S;
-            end
-            else if(32'b1011011 <= angle && angle <= 32'b10110100) begin
-                value <= tmp2S;
-            end
-             else if(32'b10110101 <= angle && angle <= 32'b100001110) begin
-                value <= tmp3S;
-            end
-            else if(32'b100001111 <= angle &&angle <= 32'b101101000) begin
-                value <= tmp4S;
-            end
-        end
-    end */
  
 endmodule

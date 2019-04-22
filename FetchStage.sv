@@ -32,13 +32,13 @@
 */
 module FetchStage #(parameter N = 32)
 	   (input  logic clk, 
-			input  bit   pcSrcWb, pcSrcExe,
+			input  bit   pcSrcWb, pcSrcExe, stallF,
 			input  int   pcWb, pcAlu,
 			output int   inst, pcOut);
 
 	logic [31:0] prePcIn, pcIn, pcPlus1;
 
-	Register #(N) pc (pcIn, ~clk, 1'b1, pcOut);
+	Register #(N) pc (pcIn, ~clk, 1'b1, stallF, pcOut);
 	nBitsADD #(N) Sumador (pcOut, 32'b1, 1'b0, pcPlus1);
 	InstructionMemory #(N) memoria_instrucciones(pcOut, inst);
 
