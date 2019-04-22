@@ -49,6 +49,7 @@ module ControlUnit(input inst_header inst_head,
 				SIN: sin (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 				COS: cos (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 			endcase
+			ctr_signal.aluSrc = inst_head.immSignal;
 		end else if (inst_head.op == MEMORY) begin
 			unique case (inst_head.cmd[4:3])
 				LDR: ldr (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
@@ -56,9 +57,11 @@ module ControlUnit(input inst_header inst_head,
 				RDP: rdp (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 				WRP: wrp (ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
 			endcase
+			ctr_signal.aluSrc = inst_head.immSignal;
 		end else begin //FLOW
-
+				B: b(ctr_signal, RegSrcA1, RegSrcA2, bLink, immSrc);
+				ctr_signal.aluSrc = 1'b1;
 		end
-		ctr_signal.aluSrc = inst_head.immSignal;
+		
 	end
 endmodule 

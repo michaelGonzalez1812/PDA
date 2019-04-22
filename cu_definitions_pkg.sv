@@ -47,7 +47,7 @@ package cu_definitions_pkg;
     parameter WITHOUT_IMM = 1'b0;
 
     /********************************************
-    *      tasks for processing without imm
+    *      tasks for processing
     ********************************************/
     task processing_common (output deco_exe_cu_signals ctr_signal,
             output bit RegSrcA1, RegSrcA2, bLink, immSrc);
@@ -233,7 +233,7 @@ package cu_definitions_pkg;
     endtask
 
     /********************************************
-    *      tasks for memory with imm
+    *      tasks for memory
     ********************************************/
     task memory_common (output deco_exe_cu_signals ctr_signal,
             output bit RegSrcA1, bLink, immSrc);
@@ -301,6 +301,29 @@ package cu_definitions_pkg;
             ctr_signal.memWrite = 1'b0;
             ctr_signal.memPixWrite = 1'b1;
             ctr_signal.memToReg = 2'b00;
+        end
+    endtask
+
+    /********************************************
+    *      tasks for flow
+    ********************************************/
+    task b (output deco_exe_cu_signals ctr_signal,
+            output bit RegSrcA1, RegSrcA2, bLink, 
+            output bit immSrc);
+        begin
+            ctr_signal.pcSrc = 1'b0;
+            RegSrcA1 = 1'b1;
+            RegSrcA2 = 1'b0;
+            ctr_signal.regWrite = 1'b0;
+            immSrc = 1'b0;
+            ctr_signal.trigControl = 1'b0; 
+            ctr_signal.aluControl = 4'b0010;
+            ctr_signal.memWrite = 1'b0;
+            ctr_signal.memPixWrite = 1'b0;
+            ctr_signal.memToReg = 2'b00;
+            ctr_signal.branch = 1'b1; 
+            ctr_signal.flagWrite = 1'b0;
+            bLink = 1'b0;
         end
     endtask
 endpackage
