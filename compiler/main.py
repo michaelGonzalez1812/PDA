@@ -531,7 +531,7 @@ def bState(line):
         newState="ErrorState"
         return (newState,line)
 
-    imm = -(lineCounter -  labelLines[label])
+    imm = -(lineCounter-1 - labelLines[label])
     binaryImm = bindigits(int(imm),26)
     encodedLine = editString2(encodedLine,6,31,binaryImm)
     newState="doneState"
