@@ -54,8 +54,7 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	conditional_flags cond_flags;
 
 	int instFetch, instInDeco, wbOutput, pcFetch;
-	bit pcSrcExe;
-	bit regSrcA1, regSrcA2, bLink, immSrc;
+	bit regSrcA1, regSrcA2, bLink, immSrc, pcSrcExe, condOut;
 	
 	HazardUnit hazard_unit (hazard_in, //input
 		hazard_out); //output
@@ -63,14 +62,8 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	ControlUnit cu (inst_head, //input
 		deco_exe_cu_sig_deco, regSrcA1, regSrcA2, bLink, immSrc); //output
 
-	ConditionalUnit condUnit (clk, deco_exe_inter_exe.cond, //input
-		cond_flags, deco_exe_cu_sig_exe.flagWrite, //input
-		deco_exe_cu_sig_exe.memPixWrite, deco_exe_cu_sig_exe.branch, //input
-		deco_exe_cu_sig_exe.memWrite, deco_exe_cu_sig_exe.regWrite, //input
-		deco_exe_cu_sig_exe.pcSrc, //input
-		exe_mem_cu_sig_exe.memPixWrite, exe_mem_cu_sig_exe.memWrite, //output
-		exe_mem_cu_sig_exe.regWrite, exe_mem_cu_sig_exe.pcSrc, //output
-		pcSrcExe); //output
+	ConditionalUnit cond_unit (clk, deco_exe_cu_sig_exe.flagWrite, cond_flags, 
+		deco_exe_inter_exe.cond, condOut);
 
 	FetchStage #(32) fetch_stage (clk, mem_wb_cu_sig_wb.pcSrc, //input
 		pcSrcExe, hazard_out.stallF, wbOutput, exe_mem_inter_exe.aluResult, //input
@@ -121,4 +114,13 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	*	Hazard assigment
 	*********************************************/
 	assign hazard_in.branchTaken = pcSrcExe;
+
+	/********************************************
+	*	Conditional assigment
+	*********************************************/
+	assign pcSrcExe = condOut & deco_exe_cu_sig_exe.branch;
+	assign exe_mem_cu_sig_exe.memPixWrite = condOut & deco_exe_cu_sig_exe.memPixWrite;
+	assign exe_mem_cu_sig_exe.memWrite = condOut & deco_exe_cu_sig_exe.memWrite;
+	assign exe_mem_cu_sig_exe.regWrite = condOut & deco_exe_cu_sig_exe.regWrite;
+	assign exe_mem_cu_sig_exe.pcSrc = condOut & deco_exe_cu_sig_exe.pcSrc;
 endmodule 

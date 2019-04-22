@@ -32,39 +32,43 @@ module MUX3 (input logic [3:0] d0, d1, d2, d3, d4, d5, d6, d7, d8,
 		output logic [3:0] result);
 			  
 	assign result = s[2] ? (s[1] ? (s[0] ? (d8) //111
-                    : (d7)) //110
-                    : (s[0] ? (d6) //101 
-                    : (d5))) //100
+                    : (d7))         //110
+                    : (s[0] ? (d6)  //101 
+                    : (d5)))        //100
                     : (s[1] ? (s[0] ? (d4) //011 
-                    : (d3)) //010
-                    : (s[0] ? (d2) //001
-                    : (d1)));	//000
+                    : (d3))         //010
+                    : (s[0] ? (d2)  //001
+                    : (d1)));	    //000
 endmodule
 
 
 module ConditionalUnit(input logic clk,
-                       input logic [3:0] ALUFlags,
-                       input logic [2:0] Cond,
-                       output logic out);
+        input  bit flagWrite,
+        input  bit [3:0] aluFlags,
+        input  bit [2:0] Cond,
+        output logic out);
 
     //separar las banderas 
-    logic n,z,c,v, outCond;
+    bit n,z,c,v, outCond;
+    bit [3:0] condFlags;
 
-    assign n = ALUFlags[3];
-    assign z = ALUFlags[2];
-    assign c = ALUFlags[1];
-    assign v = ALUFlags[0];
+    Register #(4) flags (aluFlags, clk, flagWrite, 1'b0, condFlags);
 
-    mux3 muxCond(3'b1, //000 sin condiciones
-                z, //001 z=1
-                -z, // 010 z=0
-                n==v, // 011 n=v
-                n!=v, //100 n!=v
-                (z==0 & n==v), //101 z=0 y n=v
-                (z==1 & n!=v), // 110 z=1 o n!=v
-                3'b0, // 111 no existe
-                Cond,
-                outCond); 
+    mux3 muxCond(3'b1,  //000 sin condiciones
+        z,              // 001 z=1
+        -z,             // 010 z=0
+        n==v,           // 011 n=v
+        n!=v,           // 100 n!=v
+        (z==0 & n==v),  // 101 z=0 y n=v
+        (z==1 & n!=v),  // 110 z=1 o n!=v
+        3'b0,           // 111 no existe
+        Cond,
+        outCond); 
+
+    assign n = condFlags[3];
+    assign z = condFlags[2];
+    assign c = condFlags[1];
+    assign v = condFlags[0];
 
     assign out = outCond;
 
