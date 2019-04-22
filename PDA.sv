@@ -30,7 +30,7 @@ import stages_definition_pkg::*;
 
 
 module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
-		output logic [31:0] outFE, DecoVisu, ExeVisu, MemVisu, MemPixVisu, WBVisu); // es la instruccion entrante al pipeline
+		output inst_header inst_head); // es la instruccion entrante al pipeline
 	
 	deco_exe_cu_signals deco_exe_cu_sig_deco;
 	deco_exe_interface deco_exe_inter_deco;
@@ -50,7 +50,6 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	hazard_input hazard_in;
 	hazard_output hazard_out;
 
-	inst_header inst_head;
 	conditional_flags cond_flags;
 
 	int instFetch, instInDeco, wbOutput, pcFetch;
