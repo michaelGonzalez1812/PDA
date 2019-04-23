@@ -29,7 +29,7 @@ module InstructionMemory #(parameter N = 32, M=2048) // 8kB
 		output int data_out);
 	
 	initial begin
-		//$readmemb("instrucciones.mem", mem); // cambiar ruta de cada uno
+		$readmemb("instrucciones.mem", mem); // cambiar ruta de cada uno
 	end
 
 	int mem [M];
