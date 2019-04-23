@@ -624,7 +624,7 @@ def src2State(line):
 
 def main():
     global encodedLine, insCounter, lineCounter, writeLineFlag, fsmMode
-    F= open("asm.txt","r")
+    F= open("asmDraw.txt","r")
     os.remove("instructions.txt")
     F2= open("instructions.txt", "a+") 
     FLines = F.readlines()
