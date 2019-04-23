@@ -27,18 +27,17 @@
 ***********************************************
 **/
 // Mux de selector 3 bits
-module mux3 (input logic [3:0] d0, d1, d2, d3, d4, d5, d6, d7, d8,
-		input logic [2:0] s,
-		output logic [3:0] result);
+module mux3 (input bit d0, d1, d2, d3, d4, d5, d6,
+		input  bit [2:0] sel,
+		output bit result);
 			  
-	assign result = s[2] ? (s[1] ? (s[0] ? (d8) //111
-                    : (d7))         //110
-                    : (s[0] ? (d6)  //101 
-                    : (d5)))        //100
-                    : (s[1] ? (s[0] ? (d4) //011 
-                    : (d3))         //010
-                    : (s[0] ? (d2)  //001
-                    : (d1)));	    //000
+	assign result = (sel == 3'b000) ? d0 :
+                    (sel == 3'b001) ? d1 :
+                    (sel == 3'b010) ? d2 :
+                    (sel == 3'b011) ? d3 :
+                    (sel == 3'b100) ? d4 :
+                    (sel == 3'b101) ? d5 :
+                    (sel == 3'b110) ? d6 : 1'b1;
 endmodule
 
 
@@ -49,7 +48,7 @@ module ConditionalUnit(input logic clk,
         output logic out);
 
     //separar las banderas 
-    bit n,z,c,v, outCond;
+    bit n,z,c,v;
     bit [3:0] condFlags;
 
     Register #(4) flags (aluFlags, clk, flagWrite, 1'b0, condFlags);
@@ -61,15 +60,12 @@ module ConditionalUnit(input logic clk,
         n!=v,           // 100 n!=v
         (z==0 & n==v),  // 101 z=0 y n=v
         (z==1 & n!=v),  // 110 z=1 o n!=v
-        3'b0,           // 111 no existe
         Cond,
-        outCond); 
+        out); 
 
     assign n = condFlags[3];
     assign z = condFlags[2];
     assign c = condFlags[1];
     assign v = condFlags[0];
-
-    assign out = outCond;
 
 endmodule
