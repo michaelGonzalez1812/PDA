@@ -37,7 +37,7 @@
 
 
 set_global_assignment -name FAMILY "Cyclone IV GX"
-set_global_assignment -name DEVICE EP4CGX22CF19C7
+set_global_assignment -name DEVICE EP4CGX150DF31C7
 set_global_assignment -name TOP_LEVEL_ENTITY PDA
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:40:49  APRIL 12, 2019"
@@ -46,7 +46,6 @@ set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
-set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)"
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
@@ -56,57 +55,55 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name SYSTEMVERILOG_FILE WriteBackStage.sv
+set_global_assignment -name SYSTEMVERILOG_FILE WriteBack_tb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE TOP.sv
 set_global_assignment -name SYSTEMVERILOG_FILE stages_definition_pkg.sv
 set_global_assignment -name SYSTEMVERILOG_FILE senLUT_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE SenLUT.sv
-set_global_assignment -name SYSTEMVERILOG_FILE LUT_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE LUT.sv
-set_global_assignment -name SYSTEMVERILOG_FILE HazardUnit.sv
-set_global_assignment -name SYSTEMVERILOG_FILE FlagSetting_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE FetchStage.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ExecuteStage.sv
-set_global_assignment -name SYSTEMVERILOG_FILE DecodeStage.sv
-set_global_assignment -name SYSTEMVERILOG_FILE cu_definitions_pkg.sv
-set_global_assignment -name SYSTEMVERILOG_FILE PDA.sv
-set_global_assignment -name SYSTEMVERILOG_FILE PDA_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE WriteBack_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE WriteBack.sv
-set_global_assignment -name SYSTEMVERILOG_FILE UmbralUnit.sv
-set_global_assignment -name SYSTEMVERILOG_FILE TOP.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Test_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Test.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Register_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RegisterFileTB.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RegisterFile.sv
+set_global_assignment -name SYSTEMVERILOG_FILE Register_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Register.sv
-set_global_assignment -name SYSTEMVERILOG_FILE PixelsMemoryTB.sv
 set_global_assignment -name SYSTEMVERILOG_FILE PixelsMemory.sv
-set_global_assignment -name SYSTEMVERILOG_FILE PixelMemory_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE PixelMemory.sv
-set_global_assignment -name SYSTEMVERILOG_FILE PCregister.sv
-set_global_assignment -name SYSTEMVERILOG_FILE PAU_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE PAU.sv
+set_global_assignment -name SYSTEMVERILOG_FILE PDA_tb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE PDA.sv
+set_global_assignment -name SYSTEMVERILOG_FILE nBitsADD.sv
 set_global_assignment -name SYSTEMVERILOG_FILE MemoryTB.sv
 set_global_assignment -name SYSTEMVERILOG_FILE MemoryStageTB.sv
 set_global_assignment -name SYSTEMVERILOG_FILE MemoryStage.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Memory.sv
-set_global_assignment -name SYSTEMVERILOG_FILE MemorTB.sv
+set_global_assignment -name SYSTEMVERILOG_FILE LUT_tb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE LUT.sv
 set_global_assignment -name SYSTEMVERILOG_FILE InstructionMemory.sv
+set_global_assignment -name SYSTEMVERILOG_FILE HazardUnit.sv
 set_global_assignment -name SYSTEMVERILOG_FILE FetchTB.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Fetch.sv
+set_global_assignment -name SYSTEMVERILOG_FILE FetchStage.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Extend_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Extend.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ExecuteStage.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Execute_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Execute.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Display_7segments_controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE DecodeStage.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Decode_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Decode.sv
+set_global_assignment -name SYSTEMVERILOG_FILE cu_definitions_pkg.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ControlUnit_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ControlUnit.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ConditionalUnit_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ConditionalUnit.sv
-set_global_assignment -name SYSTEMVERILOG_FILE AverageUnit_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE AverageUnit.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ALU_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ALU.sv
+set_location_assignment PIN_AA26 -to clk
+set_location_assignment PIN_AF30 -to halt
+set_location_assignment PIN_AA25 -to reset
+set_location_assignment PIN_W25 -to inst_head.Rd[0]
+set_location_assignment PIN_T21 -to inst_head.Rd[1]
+set_location_assignment PIN_T26 -to inst_head.Rd[2]
+set_location_assignment PIN_R25 -to inst_head.Rd[3]
+set_location_assignment PIN_P25 -to inst_head.cmd[0]
+set_location_assignment PIN_R24 -to inst_head.cmd[1]
+set_location_assignment PIN_P21 -to inst_head.cmd[2]
+set_location_assignment PIN_N24 -to inst_head.cmd[3]
+set_location_assignment PIN_N21 -to inst_head.cmd[4]
+set_location_assignment PIN_K24 -to inst_head.immSignal
+set_location_assignment PIN_T23 -to inst_head.op[0]
+set_location_assignment PIN_T24 -to inst_head.op[1]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

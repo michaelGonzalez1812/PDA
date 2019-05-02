@@ -1,9 +1,11 @@
+import stages_definition_pkg::*;
+
 module PDA_tb();
 	logic clk, halt, reset;
-	logic [31:0] inst, DecoVisu, ExeVisu, MemVisu, MemPixVisu, WBVisu;
+	inst_header inst_head;
 	logic [16:0] contador;
 
-	PDA DUT (clk, reset, halt, inst, DecoVisu, ExeVisu, MemVisu, MemPixVisu, WBVisu);
+	PDA DUT (clk, reset, halt, inst_head);
 	
 	initial begin
 		halt=1'b0;
