@@ -1,0 +1,35 @@
+MOV R2 #255 ;set the rgb color to be used to draw. Color will be blue wich is hex 0x0000ff
+
+;set two y coordinates and 1 x coordinate for the vertical line to be dawn
+MOV R0, #160 ; x coordinate, Fixed
+MOV R3, #50  ; first y coordinate
+MOV R4, #100 ; second y coordinate
+
+MOV R5 R3 ; R5 is the loop variable.
+
+;loop to set the color for each pixel in the line 
+VerticalLine: 
+MOV R1, R5 ; set y coordinate
+WRP R2 ; set the pixel in coordinates given in R0(x) and R1(y) to the color indicated in R2 
+ADD R5, R5, #1 ; increment y variable
+CMP R5, R4 ; loop stop condition 
+BLE VerticalLine 
+
+;set two x coordinates and 1 y coordinate for the horizontal line to be dawn
+MOV R1, #100 ; y coordinate, Fixed
+MOV R6, #160  ; first x coordinate
+MOV R7, #100 ; second x coordinate
+
+MOV R8 R6 ; R8 is the loop variable.
+
+;loop to set the color for each pixel in the line 
+HorizontalLine: 
+MOV R0, R8 ; set x coordinate
+WRP R2 ; set the pixel in coordinates given in R0(x) and R1(y) to the color indicated in R2 
+SUB R8, R8, #1 ;  decrement x variable
+CMP R8, R7 ; loop stop condition 
+BGE HorizontalLine 
+
+end:
+B end
+

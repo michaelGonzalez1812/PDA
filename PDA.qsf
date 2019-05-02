@@ -54,6 +54,23 @@ set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_AA26 -to clk
+set_location_assignment PIN_AA25 -to reset
+set_location_assignment PIN_AF30 -to halt
+set_location_assignment PIN_M21 -to inst_head.op[0]
+set_location_assignment PIN_M22 -to inst_head.op[1]
+set_location_assignment PIN_R24 -to inst_head.Rd[3]
+set_location_assignment PIN_P25 -to inst_head.Rd[2]
+set_location_assignment PIN_T27 -to inst_head.Rd[1]
+set_location_assignment PIN_R25 -to inst_head.Rd[0]
+set_location_assignment PIN_K24 -to inst_head.cmd[4]
+set_location_assignment PIN_M25 -to inst_head.cmd[3]
+set_location_assignment PIN_N21 -to inst_head.cmd[2]
+set_location_assignment PIN_N24 -to inst_head.cmd[1]
+set_location_assignment PIN_P21 -to inst_head.cmd[0]
+set_location_assignment PIN_L25 -to inst_head.immSignal
+set_global_assignment -name SOURCE_FILE pix.mem
+set_global_assignment -name SOURCE_FILE instrucciones.mem
 set_global_assignment -name SYSTEMVERILOG_FILE WriteBackStage.sv
 set_global_assignment -name SYSTEMVERILOG_FILE WriteBack_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE TOP.sv
