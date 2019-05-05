@@ -44,7 +44,8 @@ module ExecuteStage #(parameter N=32)
 	/***********************************************
 	 * conectar unidad de trigonometria
 	 ***********************************************/
-	
+	LUT lut (trigControl, aluSrc1, exe_mem_inter_exe.trigResult); 
+
 	ALU #(N) alu (aluSrc1, aluSrc2, aluControl, exe_mem_inter_exe.aluResult, cond_flags);
 	
 	assign aluSrc1 = (forwardAluSrc1 == 2'b00)? deco_exe_inter_exe.RD1 :

@@ -30,7 +30,8 @@ import stages_definition_pkg::*;
 
 
 module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
-		output inst_header inst_head); // es la instruccion entrante al pipeline
+		output inst_header inst_head, 
+		output [31:0] pixelMemDisplay); // es la instruccion entrante al pipeline
 	
 	deco_exe_cu_signals deco_exe_cu_sig_deco;
 	deco_exe_interface deco_exe_inter_deco;
@@ -122,4 +123,10 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	assign exe_mem_cu_sig_exe.memWrite = condOut & deco_exe_cu_sig_exe.memWrite;
 	assign exe_mem_cu_sig_exe.regWrite = condOut & deco_exe_cu_sig_exe.regWrite;
 	assign exe_mem_cu_sig_exe.pcSrc = condOut & deco_exe_cu_sig_exe.pcSrc;
+
+	/********************************************
+	*	Dispaly assigment
+	*********************************************/
+	assign pixelMemDisplay = mem_wb_inter_mem.pixMemRead;
+
 endmodule 

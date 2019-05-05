@@ -51,6 +51,7 @@ module MemoryStage #(parameter N = 32)
 		mem_wb_inter_mem.dataMemRead); //output
 
 	assign mem_wb_inter_mem.aluResult = exe_mem_inter_mem.aluResult;
+	assign mem_wb_inter_mem.trigResult = exe_mem_inter_mem.trigResult;
 	assign mem_wb_inter_mem.Rd = exe_mem_inter_mem.Rd; 
 	
 endmodule
