@@ -31,7 +31,7 @@ import stages_definition_pkg::*;
 
 module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 		output inst_header inst_head, 
-		output [31:0] pixelMemDisplay); // es la instruccion entrante al pipeline
+		output logic [31:0] pixelMemDisplay); // es la instruccion entrante al pipeline
 	
 	deco_exe_cu_signals deco_exe_cu_sig_deco;
 	deco_exe_interface deco_exe_inter_deco;

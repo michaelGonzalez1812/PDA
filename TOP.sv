@@ -1,26 +1,24 @@
-module TOP(input logic clk, input logic [2:0] sel, output logic [6:0] inst7, inst6, inst5, inst4, inst3, inst2, inst1, inst0);
-	logic halt, reset;
-	logic [31:0] inst, FetchVisu, DecoVisu, ExeVisu, MemVisu, MemPixVisu, WBVisu;
-	assign halt=1'b0;
-	assign reset=1'b0;
+module TOP(input logic clk, reset, halt, // halt para detener la ejecucion
+		output inst_header inst_head,
+		output logic [6:0] HEX0,
+		output logic [6:0] HEX1,
+		output logic [6:0] HEX2,
+		output logic [6:0] HEX3,
+		output logic [6:0] HEX4,
+		output logic [6:0] HEX5,
+		output logic [6:0] HEX6,
+		output logic [6:0] HEX7);
 	
-	Display_7segments_controller D0 (inst[3],inst[2],inst[1],inst[0],
-												inst0[6],inst0[5],inst0[4],inst0[3],inst0[2],inst0[1],inst0[0]);
-	Display_7segments_controller D1 (inst[7],inst[6],inst[5],inst[4],
-												inst1[6],inst1[5],inst1[4],inst1[3],inst1[2],inst1[1],inst1[0]);
-	Display_7segments_controller D2 (inst[11],inst[10],inst[9],inst[8],
-												inst2[6],inst2[5],inst2[4],inst2[3],inst2[2],inst2[1],inst2[0]);
-	Display_7segments_controller D3 (inst[15],inst[14],inst[13],inst[12],
-												inst3[6],inst3[5],inst3[4],inst3[3],inst3[2],inst3[1],inst3[0]);
-	Display_7segments_controller D4 (inst[19],inst[18],inst[17],inst[16],
-												inst4[6],inst4[5],inst4[4],inst4[3],inst4[2],inst4[1],inst4[0]);
-	Display_7segments_controller D5 (inst[23],inst[22],inst[21],inst[20],
-												inst5[6],inst5[5],inst5[4],inst5[3],inst5[2],inst5[1],inst5[0]);
-	Display_7segments_controller D6 (inst[27],inst[26],inst[25],inst[24],
-												inst6[6],inst6[5],inst6[4],inst6[3],inst6[2],inst6[1],inst6[0]);
-	Display_7segments_controller D7 (inst[31],inst[30],inst[29],inst[28],
-												inst7[6],inst7[5],inst7[4],inst7[3],inst7[2],inst7[1],inst7[0]);
-	assign inst = (sel==3'b0)? FetchVisu : (sel==3'b1)? DecoVisu : (sel==3'b10)? ExeVisu : (sel==3'b11)? MemVisu : 
-					  (sel==3'b100)? MemPixVisu : (sel==3'b101)? WBVisu : (sel==3'b110)? 32'hFFFFFFFF : 32'hFFFFFFFF;
-	ArquitecturaHybridARMIPS ARMIPS (~clk, reset, halt, FetchVisu, DecoVisu, ExeVisu, MemVisu, MemPixVisu, WBVisu); // por el boton
+	logic [31:0] pixelMemDisplay;
+
+	Display7Seg display0 (pixelMemDisplay[3:0],   HEX0);
+	Display7Seg display0 (pixelMemDisplay[7:4],   HEX1);
+	Display7Seg display0 (pixelMemDisplay[11:8],  HEX2);
+	Display7Seg display0 (pixelMemDisplay[15:12], HEX3);
+	Display7Seg display0 (pixelMemDisplay[19:16], HEX4);
+	Display7Seg display0 (pixelMemDisplay[23:20], HEX5);
+	Display7Seg display0 (pixelMemDisplay[27:24], HEX6);
+	Display7Seg display0 (pixelMemDisplay[31:28], HEX7);
+	
+	PDA cpu (clk, reset, halt, inst_head, pixelMemDisplay);
 endmodule 
