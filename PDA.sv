@@ -31,9 +31,7 @@ import stages_definition_pkg::*;
 
 module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 		output inst_header inst_head, 
-		output [6:0] pixelMemDisplay1,
-		output [6:0] pixelMemDisplay2,
-		output [6:0] pixelMemDisplay3); // es la instruccion entrante al pipeline
+		output [31:0] pixelMemDisplay); // es la instruccion entrante al pipeline
 	
 	deco_exe_cu_signals deco_exe_cu_sig_deco;
 	deco_exe_interface deco_exe_inter_deco;
@@ -129,110 +127,6 @@ module PDA(input logic clk, reset, halt, // halt para detener la ejecucion
 	/********************************************
 	*	Dispaly assigment
 	*********************************************/
-	/* always @*
-		case (mem_wb_inter_mem.pixMemRead[7:0])
-			8'b0000 :      	//Hexadecimal 0
-			pixelMemDisplay1 = 7'b1111110;
-			8'b0001 :    		//Hexadecimal 1
-			pixelMemDisplay1 = 7'b0110000  ;
-			8'b0010 :  		   // Hexadecimal 2
-			pixelMemDisplay1 = 7'b1101101 ; 
-			8'b0011 : 		   // Hexadecimal 3
-			pixelMemDisplay1 = 7'b1111001 ;
-			8'b0100 :		   // Hexadecimal 4
-			pixelMemDisplay1 = 7'b0110011 ;
-			8'b0101 :		   // Hexadecimal 5
-			pixelMemDisplay1 = 7'b1011011 ;  
-			8'b0110 :		   // Hexadecimal 6
-			pixelMemDisplay1 = 7'b1011111 ;
-			8'b0111 :		   // Hexadecimal 7
-			pixelMemDisplay1 = 7'b1110000;
-			8'b1000 :     		//Hexadecimal 8
-			pixelMemDisplay1 = 7'b1111111;
-			8'b1001 :    		//Hexadecimal 9
-			pixelMemDisplay1 = 7'b1111011 ;
-			8'b1010 :  		   // Hexadecimal A
-			pixelMemDisplay1 = 7'b1110111 ; 
-			8'b1011 : 		   // Hexadecimal B
-			pixelMemDisplay1 = 7'b0011111;
-			8'b1100 :		   // Hexadecimal C
-			pixelMemDisplay1 = 7'b1001110 ;
-			8'b1101 :		   // Hexadecimal D
-			pixelMemDisplay1 = 7'b0111101 ;
-			8'b1110 :		   // Hexadecimal E
-			pixelMemDisplay1 = 7'b1001111 ;
-			8'b1111 :		   // Hexadecimal F
-			pixelMemDisplay1 = 7'b1000111 ;
-		endcase
-		case (mem_wb_inter_mem.pixMemRead[15:8])
-			8'b0000 :      	//Hexadecimal 0
-			pixelMemDisplay = 7'b1111110;
-			8'b0001 :    		//Hexadecimal 1
-			pixelMemDisplay = 7'b0110000  ;
-			8'b0010 :  		   // Hexadecimal 2
-			pixelMemDisplay = 7'b1101101 ; 
-			8'b0011 : 		   // Hexadecimal 3
-			pixelMemDisplay = 7'b1111001 ;
-			8'b0100 :		   // Hexadecimal 4
-			pixelMemDisplay = 7'b0110011 ;
-			8'b0101 :		   // Hexadecimal 5
-			pixelMemDisplay = 7'b1011011 ;  
-			8'b0110 :		   // Hexadecimal 6
-			pixelMemDisplay = 7'b1011111 ;
-			8'b0111 :		   // Hexadecimal 7
-			pixelMemDisplay = 7'b1110000;
-			8'b1000 :     		//Hexadecimal 8
-			pixelMemDisplay = 7'b1111111;
-			8'b1001 :    		//Hexadecimal 9
-			pixelMemDisplay = 7'b1111011 ;
-			8'b1010 :  		   // Hexadecimal A
-			pixelMemDisplay = 7'b1110111 ; 
-			8'b1011 : 		   // Hexadecimal B
-			pixelMemDisplay = 7'b0011111;
-			8'b1100 :		   // Hexadecimal C
-			pixelMemDisplay = 7'b1001110 ;
-			8'b1101 :		   // Hexadecimal D
-			pixelMemDisplay = 7'b0111101 ;
-			8'b1110 :		   // Hexadecimal E
-			pixelMemDisplay = 7'b1001111 ;
-			8'b1111 :		   // Hexadecimal F
-			pixelMemDisplay = 7'b1000111 ;
-		endcase
-		case (mem_wb_inter_mem.pixMemRead[23:16])
-			8'b0000 :      	//Hexadecimal 0
-			pixelMemDisplay = 7'b1111110;
-			8'b0001 :    		//Hexadecimal 1
-			pixelMemDisplay = 7'b0110000  ;
-			8'b0010 :  		   // Hexadecimal 2
-			pixelMemDisplay = 7'b1101101 ; 
-			8'b0011 : 		   // Hexadecimal 3
-			pixelMemDisplay = 7'b1111001 ;
-			8'b0100 :		   // Hexadecimal 4
-			pixelMemDisplay = 7'b0110011 ;
-			8'b0101 :		   // Hexadecimal 5
-			pixelMemDisplay = 7'b1011011 ;  
-			8'b0110 :		   // Hexadecimal 6
-			pixelMemDisplay = 7'b1011111 ;
-			8'b0111 :		   // Hexadecimal 7
-			pixelMemDisplay = 7'b1110000;
-			8'b1000 :     		//Hexadecimal 8
-			pixelMemDisplay = 7'b1111111;
-			8'b1001 :    		//Hexadecimal 9
-			pixelMemDisplay = 7'b1111011 ;
-			8'b1010 :  		   // Hexadecimal A
-			pixelMemDisplay = 7'b1110111 ; 
-			8'b1011 : 		   // Hexadecimal B
-			pixelMemDisplay = 7'b0011111;
-			8'b1100 :		   // Hexadecimal C
-			pixelMemDisplay = 7'b1001110 ;
-			8'b1101 :		   // Hexadecimal D
-			pixelMemDisplay = 7'b0111101 ;
-			8'b1110 :		   // Hexadecimal E
-			pixelMemDisplay = 7'b1001111 ;
-			8'b1111 :		   // Hexadecimal F
-			pixelMemDisplay = 7'b1000111 ;
-		endcase */
-
 
 	assign pixelMemDisplay = mem_wb_inter_mem.pixMemRead;
 
