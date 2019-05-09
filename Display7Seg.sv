@@ -6,13 +6,13 @@ parameter TRES =    7'b0110000;
 parameter CUATRO =  7'b0011001;
 parameter CINCO =   7'b0010010;
 parameter SEIS =    7'b0000010;
-parameter SIETE =    7'b1111000;
+parameter SIETE =   7'b1111000;
 parameter OCHO =    7'b0000000;
 parameter NUEVE =   7'b0011000;
 parameter DIEZ =    7'b0001000;
-parameter ONCE =    7'b0000000;
+parameter ONCE =    7'b0000011;
 parameter DOCE =    7'b1000110;
-parameter TRECE =   7'b1000000;
+parameter TRECE =   7'b0100001;
 parameter CATORCE = 7'b0000110;
 parameter QUINCE =  7'b0001110;
 
